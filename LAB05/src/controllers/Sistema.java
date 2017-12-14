@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import models.Aposta;
 import models.Cenario;
+import models.Validador;
 
 public class Sistema {
 	
@@ -15,6 +16,9 @@ public class Sistema {
 	private ArrayList<Cenario> cenarios;
 	
 	public Sistema(int caixa, double taxa) {
+		Validador.validarNotNegativeInteger("Erro na inicializacao: Caixa nao pode ser inferior a 0", caixa);
+		Validador.validarNotNegativeDouble("Erro na inicializacao: Taxa nao pode ser inferior a 0", taxa);
+		
 		this.caixa = caixa;
 		this.taxa = taxa;
 		this.apostas = new HashMap<>();
@@ -36,6 +40,10 @@ public class Sistema {
 	}
 	
 	public String exibirCenario(int cenario) {
+		Validador.validarNotNegativeInteger("Erro na consulta de cenario: Cenario invalido", cenario);
+		Validador.validarLessEqualThan("Erro na consulta de cenario: Cenario nao cadastrado",
+				                  this.cenarios.size(), cenario);
+		
 		return this.cenarios.get(cenario - 1).toString();
 	}
 	
@@ -56,8 +64,12 @@ public class Sistema {
 				this.apostas.get(cenario).add(new Aposta(apostador, valor, true));
 			} 
 			
-			else {
+			else if (previsao.toUpperCase().equals("N VAI ACONTECER")){
 				this.apostas.get(cenario).add(new Aposta(apostador, valor, false));
+			}
+			
+			else {
+				throw new IllegalArgumentException("Erro no cadastro de aposta: Previsao invalida");
 			}
 		}
 	}

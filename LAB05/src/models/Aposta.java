@@ -7,6 +7,10 @@ public class Aposta {
 	private boolean previsao;
 	
 	public Aposta(String apostador, int valor, boolean previsao) {
+		Validador.validarNotEmpty("Nome do apostador vazio!", apostador);
+		Validador.validarNotNull("Nome do apostador nulo!", apostador);
+		Validador.validarPositiveInteger("Valor apostado inválido!", valor);
+				
 		this.apostador = apostador;
 		this.valor = valor;
 		this.previsao = previsao;
@@ -25,29 +29,7 @@ public class Aposta {
 	}
 	
 	private String descrevePrevisao() {
-		if (this.previsao) {
-			return "VAI ACONTECER";
-		}
-		
-		return "NÃO VAI ACONTECER";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((apostador == null) ? 0 : apostador.hashCode());
-		result = prime * result + (previsao ? 1231 : 1237);
-		result = prime * result + valor;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		
-		return false;
+		return (this.previsao) ? "VAI ACONTECER" : "N VAI ACONTECER";
 	}
 
 	@Override

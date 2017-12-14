@@ -8,6 +8,9 @@ public class Cenario {
 	private boolean ocorrencia;
 	
 	public Cenario(int numeracao, String descricao) {
+		Validador.validarNotEmpty("Erro no cadastro de cenario: Descricao nao pode ser vazia", descricao);
+		Validador.validarNotNull("Descrição de cenário nula!", descricao);
+		
 		this.numeracao = numeracao;
 		this.descricao = descricao;
 		this.finalizacao = false;
@@ -44,14 +47,14 @@ public class Cenario {
 	
 	private String descreveEstadoOcorrencia() {
 		if (!this.finalizacao) {
-			return "NÃO FINALIZADO";
+			return "Nao finalizado";
 		}
 		
 		if (this.ocorrencia) {
-			return "FINALIZADO (OCORREU)";
+			return "finalizado (ocorreu)";
 		}
 		
-		return "FINALIZADO (NÃO OCORREU)";
+		return "Finalizado (n ocorreu)";
 	}
 
 	@Override

@@ -1,8 +1,17 @@
 package controllers;
 
+import easyaccept.EasyAccept;
+
 public class Facade {
 	
 	private Sistema sistema;
+	
+	public static void main(String[] args) {
+		args = new String[] {"controllers.Facade", "easy/us1_test.txt", "easy/us2_test.txt",
+				             "easy/us3_test.txt", "easy/us4_test.txt"};
+		EasyAccept.main(args);
+		
+	}
 	
 	public void inicializa(int caixa, double taxa) {
 		this.sistema = new Sistema(caixa, taxa);
