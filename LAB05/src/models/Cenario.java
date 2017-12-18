@@ -1,20 +1,43 @@
 package models;
 
+import java.util.ArrayList;
+import utility.Validador;
+
+/**
+ * Representação de um Cenario criado num Sistema, sobre o qual serão feitas Apostas. Como atributos,
+ * cada Cenario possui uma numeração inteira que o identifica, uma String que o descreve, um Estado
+ * que indica sua finalização e/ou ocorrência e uma lista de apostas feitas sobre ele.
+ * 
+ * Laboratório de Programação 2 - Lab 05
+ * @author Matheus Alves dos Santos - 117110503
+ *
+ */
 public class Cenario {
 	
 	private int numeracao;
 	private String descricao;
-	private boolean finalizacao;
-	private boolean ocorrencia;
+	private Estado estado;
+	private ArrayList<Aposta> apostas;
 	
+
+	/**
+	 * Constrói um Cenario a partir da numeração que o identifica e da String que o descreve. Não é
+	 * permitida a criação de um Cenario cuja descrição seja nula ou vazia. Não é permitida a cria-
+	 * ção de um Cenario cuja numeração seja menor ou igual a zero. O estado do Cenario será inicia-
+	 * lizado como "Nao finalizado" e a lista com as apostas sobre ele é, inicialmente, vazia.
+	 * 
+	 * @param numeracao O inteiro que atua como ID de cada Cenario.
+	 * @param descricao O texto que descreve brevemente o Cenario.
+	 * 
+	 */
 	public Cenario(int numeracao, String descricao) {
-		Validador.validarNotEmpty("Erro no cadastro de cenario: Descricao nao pode ser vazia", descricao);
-		Validador.validarNotNull("Descrição de cenário nula!", descricao);
+		Validador.validarNotEmptyNotNull("Descricao nao pode ser vazia", descricao);
+		Validador.validarPositiveInteger("NUMERAÇÃO INVÁLIDA!", numeracao);
 		
 		this.numeracao = numeracao;
 		this.descricao = descricao;
-		this.finalizacao = false;
-		this.ocorrencia = false;
+		estado = Estado.NAO_FINALIZADO;
+		this.apostas = new ArrayList<>();
 	}
 	
 	public int getNumeracao() {
@@ -25,38 +48,120 @@ public class Cenario {
 	public String getDescricao() {
 		return this.descricao;
 	}
-
-	public boolean getFinalizacao() {
-		return this.finalizacao;
-	}
-
-
-	public void setFinalizacao(boolean finalizacao) {
-		this.finalizacao = finalizacao;
-	}
-
-
-	public boolean getOcorrencia() {
-		return this.ocorrencia;
-	}
-
-
-	public void setOcorrencia(boolean ocorrencia) {
-		this.ocorrencia = ocorrencia;
+	
+	public Estado getEstado() {
+		return this.estado;
 	}
 	
-	private String descreveEstadoOcorrencia() {
-		if (!this.finalizacao) {
-			return "Nao finalizado";
+	/**
+	 * Finaliza um Cenario ainda aberto. Dentre os dois estados "Finalizado" possíveis, o correto é
+	 * escolhido a partir do boolean passado como parâmetro do método. Caso esse método seja execu-
+	 * tado por um Cenario já fechado, uma exceção adequada é lançada.
+	 * 
+	 * @param ocorrencia O boolean relativo à ocorrência do Cenário.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void defineOcorrencia(boolean ocorrencia) {
+		if (!this.estado.equals(Estado.NAO_FINALIZADO)) {
+			throw new IllegalArgumentException("Cenario ja esta fechado");
 		}
 		
-		if (this.ocorrencia) {
-			return "finalizado (ocorreu)";
-		}
-		
-		return "Finalizado (n ocorreu)";
+		this.estado = (ocorrencia) ? Estado.FINALIZADO_OCORREU : Estado.FINALIZADO_NAO_OCORREU;
 	}
-
+	
+	/**
+	 * A partir dos parâmetros recebidos, constroi uma nova Aposta e a adiciona à lista de Apostas
+	 * que é atributo do Cenario.
+	 * 
+	 * @param apostador O nome da pessoa que fez a Aposta.
+	 * @param valor O valor (em centavos) que foi apostado.
+	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void cadastrarAposta(String apostador, int valor, String previsao) {		 
+		this.apostas.add(new Aposta(apostador, valor, previsao));
+	}
+	
+	/**
+	 * Retorna o valor total (em centavos) que foi apostado no Cenario até o momento. O valor total
+	 * é a soma do valor de cada Aposta registrada no Cenario.
+	 * 
+	 * @returns O valor total (em centavos) apostado no Cenario.
+	 * 
+	 */
+	public int valorTotalDeApostas() {
+		int totalApostas = 0;
+		
+		for (Aposta aposta : this.apostas) {
+			totalApostas += aposta.getValor();			
+		}
+		
+		return totalApostas;
+	}
+	
+	/**
+	 * Retorna o número de Apostas registradas no Cenario até o momento.
+	 * 
+	 * @returns O número de Apostas registradas no Cenario.
+	 * 
+	 */
+	public int totalDeApostas() {
+		return this.apostas.size();
+	}
+	
+	/**
+	 * Retorna a listagem de Apostas registradas no Cenario até o momento. Cada linha da listagem
+	 * contém o toString() de uma Aposta registrada. A listagem segue a ordem de registro das Apos-
+	 * tas.
+	 * 
+	 * @returns A listagem de Apostas registradas no Cenario.
+	 * 
+	 */
+	public String listarApostas() {
+		String representacaoTextual = "";
+		
+		for(Aposta aposta : this.apostas) {
+			representacaoTextual += aposta.toString() + System.lineSeparator();
+		}
+		
+		return representacaoTextual;
+	}
+	
+	/**
+	 * Retorna o valor total das Apostas perdedoras. Para que uma Aposta seja considerada perdedora,
+	 * sua previsão sobre o Cenario não pode coincidir com a ocorrência do Cenário. Caso esse método
+	 * seja executado por um Cenario ainda aberto, uma exceção adequada é lançada.
+	 * 
+	 * @returns O valor total (em centavos) das Apostas perdedoras do Cenario.
+	 * 
+	 */
+	public int totalApostasPerdedoras() {
+		if (this.estado.equals(Estado.NAO_FINALIZADO)) {
+			throw new IllegalArgumentException("Cenario ainda esta aberto");
+		}
+		
+		int total = 0;
+		boolean ocorrencia = (this.estado.equals(Estado.FINALIZADO_OCORREU)) ? true : false;
+		
+		for (Aposta aposta : this.apostas) {
+			if (aposta.getPrevisao() != ocorrencia) {
+					total += aposta.getValor();
+			}
+		}
+		
+		return total;
+	}
+	
+	/**
+	 * Gera o HashCode de um Cenario a partir de seu atributo numeracao.
+	 * 
+	 * @returns O Hashcode do Cenario.
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +170,14 @@ public class Cenario {
 		return result;
 	}
 
+	/**
+	 * Avalia se o Cenario é ou não igual a outro Object. Para que haja igualdade, deverão possuir 
+	 * o atributo numeracao iguais.
+	 * 
+	 * @param obj O objeto a ser comparado com o Cenario executando o equals.
+	 * @returns O boolean equivalente ao resultado do teste de igualdade.
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,9 +196,16 @@ public class Cenario {
 		return true;
 	}
 
+	/**
+	 * Retorna a String que representa o Cenario. A representação segue o formato "NUMERAÇÃO - DES
+	 * CRIÇÃO DO CENARIO - ESTADO ATUAL DO CENARIO".
+	 * 
+	 * @returns A representação, em String, do Cenario.
+	 * 
+	 */
 	@Override
 	public String toString() {
-		return this.getNumeracao() + " - " + this.getDescricao() + " - " + this.descreveEstadoOcorrencia();
+		return this.getNumeracao() + " - " + this.getDescricao() + " - " + this.estado.toString();
 	}
 
 }
