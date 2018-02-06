@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import models.Cenario;
+import models.CenarioBonificado;
 import utility.Validador;
 
 /**
@@ -87,6 +88,27 @@ public class Sistema {
 	public int cadastrarCenario(String descricao) {
 		try {
 			this.cenarios.add(new Cenario(this.cenarios.size() + 1, descricao));
+			return this.cenarios.size();
+		}
+		
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no cadastro de cenario: " + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new IllegalArgumentException("Erro no cadastro de cenario: " + e2.getMessage());
+		}
+	}
+	
+	
+	public int cadastrarCenarioBonificado(String descricao, int bonus) {
+		try {
+			Validador.validarPositiveInteger("Bonus invalido", bonus);
+			Validador.validarLessEqualThan("BÔNUS MUITO ALTO!", bonus, this.caixa);
+			
+			this.cenarios.add(new CenarioBonificado(this.cenarios.size() + 1, descricao, bonus));
+			this.caixa -= bonus;
+			
 			return this.cenarios.size();
 		}
 		
@@ -303,7 +325,14 @@ public class Sistema {
 	public int rateioCenario(int cenario) {
 		try {
 			this.validezCenario(cenario);
-			return this.totalApostasPerdedoras(cenario) - this.lucroCenario(cenario);
+			
+			int rateio = this.totalApostasPerdedoras(cenario) - this.lucroCenario(cenario);
+			
+			if (this.cenarios.get(cenario - 1) instanceof CenarioBonificado) {
+				rateio += ((CenarioBonificado) this.cenarios.get(cenario - 1)).getBonus();
+			}
+			
+			return rateio;
 		}
 		
 		catch (IllegalArgumentException e) {

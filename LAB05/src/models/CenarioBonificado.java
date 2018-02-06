@@ -1,5 +1,7 @@
 package models;
 
+import java.text.DecimalFormat;
+
 public class CenarioBonificado extends Cenario {
 	
 	private int bonus;
@@ -9,9 +11,15 @@ public class CenarioBonificado extends Cenario {
 		this.bonus = bonus;
 	}
 	
+	public int getBonus() {
+		return this.bonus;
+	}
+	
 	@Override
 	public String toString() {
-		return super.toString() + " - R$ " + this.bonus;
+		DecimalFormat df = new DecimalFormat("0.00");
+		
+		return super.toString() + " - R$ " + (df.format(this.getBonus() / 100.0));
 	}
 	
 }

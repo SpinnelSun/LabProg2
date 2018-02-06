@@ -62,6 +62,10 @@ public class Facade {
 		return this.sistema.cadastrarCenario(descricao);
 	}
 	
+	public int cadastrarCenario(String descricao, int bonus) {
+		return this.sistema.cadastrarCenarioBonificado(descricao, bonus);
+	}
+	
 	/**
 	 * Exibe um Cenario cadastrado no Sistema de Apostas.
 	 * 
