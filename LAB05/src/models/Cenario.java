@@ -139,7 +139,7 @@ public class Cenario {
 	 * @returns O valor total (em centavos) das Apostas perdedoras do Cenario.
 	 * 
 	 */
-	public int totalApostasPerdedoras() {
+	private int totalApostasPerdedoras() {
 		if (this.estado.equals(Estado.NAO_FINALIZADO)) {
 			throw new IllegalArgumentException("Cenario ainda esta aberto");
 		}
@@ -154,6 +154,31 @@ public class Cenario {
 		}
 		
 		return total;
+	}
+	
+	/**
+	 * Retorna o valor (em centavos) correspondente ao lucro gerado a partir das Apostas perdedoras
+	 * registradas no Cenario.  
+	 * 
+	 * @param taxa A taxa de lucro informada pelo Sistema que contém o Cenario.
+	 * 
+	 * @returns O valor (em centavos) de lucro gerado pelo Cenario.
+	 * 
+	 */
+	public int lucroCenario(double taxa) {
+		return (int) Math.floor(this.totalApostasPerdedoras() * taxa);
+	}
+	
+	/**
+	 * Retorna o valor (em centavos) que será destinado ao rateio entre os vencedores do Cenario.  
+	 * 
+	 * @param taxa A taxa de lucro informada pelo Sistema que contém o Cenario.
+	 * 
+	 * @returns O valor (em centavos) que será destinado ao rateio entre os vencedores.
+	 * 
+	 */
+	public int rateioCenario(double taxa) {
+		return this.totalApostasPerdedoras() - this.lucroCenario(taxa);
 	}
 	
 	/**

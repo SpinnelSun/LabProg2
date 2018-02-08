@@ -100,8 +100,18 @@ public class Sistema {
 		}
 	}
 	
-	
-	public int cadastrarCenarioBonificado(String descricao, int bonus) {
+	/**
+	 * Cadastra um novo CenarioBonificado no Sistema e retorna o int que será o ID do Cenario ca-
+	 * dastrado. Caso algum parâmetro gere o lançamento de exceção, ela é tratada e relançada, vi-
+	 * sando melhor interação com o usuário. 
+	 * 
+	 * @param descricao A descrição do Cenario queBonificado será cadastrado.
+	 * @param bonus O valor de bônus que o CenarioBonificado possuirá.
+	 * 
+	 * @returns O ID do CenarioBonificado cadastrado.
+	 * 
+	 */
+	public int cadastrarCenario(String descricao, int bonus) {
 		try {
 			Validador.validarPositiveInteger("Bonus invalido", bonus);
 			Validador.validarLessEqualThan("BÔNUS MUITO ALTO!", bonus, this.caixa);
@@ -187,6 +197,52 @@ public class Sistema {
 			throw new IllegalArgumentException("Erro no cadastro de aposta: " + e2.getMessage());
 		}
 	}
+	
+	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao,
+			                    int valorSeguro, int custo) {
+		try {
+			this.validezCenario(cenario);
+			
+			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
+			this.caixa += custo;
+			
+			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, valorSeguro);
+		}
+		
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: "
+		                                       + e1.getMessage());
+		}
+		
+		catch (NullPointerException e2) {
+			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: "
+		                                       + e2.getMessage());
+		}
+	}
+	
+	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao,
+							    double taxaSeguro, int custo) {
+		try {
+			this.validezCenario(cenario);
+
+			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
+			this.caixa += custo;
+
+			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, taxaSeguro);
+		}
+
+		catch (IllegalArgumentException e1) {
+			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: "
+												+ e1.getMessage());
+		}
+
+		catch (NullPointerException e2) {
+			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: "
+												+ e2.getMessage());
+		}
+	}
+	
+	
 	
 	/**
 	 * Retorna o valor total (em centavos) que foi apostado em um dos Cenarios registrados no Sis-
@@ -278,20 +334,6 @@ public class Sistema {
 	}
 	
 	/**
-	 * Retorna o valor total das Apostas perdedoras de um Cenario registrado no Sistema até o momen-
-	 * to. Caso algum parâmetro gere o lançamento de exceção, ela será tratada e relançada, visan-
-	 * do melhor interação com o usuário.  
-	 * 
-	 * @param cenario O ID do Cenario que se deseja acessar.
-	 * 
-	 * @returns O valor total (em centavos) das Apostas perdedoras do Cenario acessado.
-	 * 
-	 */
-	private int totalApostasPerdedoras(int cenario) {
-		return this.cenarios.get(cenario - 1).totalApostasPerdedoras();
-	}
-	
-	/**
 	 * Retorna o valor (em centavos) correspondente ao lucro do caixa a partir das Apostas perdedo-
 	 * ras de um Cenario registrado no Sistema até o momento. Caso algum parâmetro gere o lançamen-
 	 * to de exceção, ela será tratada e relançada, visando melhor interação com o usuário.  
@@ -304,7 +346,7 @@ public class Sistema {
 	public int lucroCenario(int cenario) {
 		try {
 			this.validezCenario(cenario);
-			return (int) Math.floor(this.totalApostasPerdedoras(cenario) * this.taxa);
+			return this.cenarios.get(cenario - 1).lucroCenario(this.taxa) ;
 		}
 		
 		catch (IllegalArgumentException e) {
@@ -325,14 +367,7 @@ public class Sistema {
 	public int rateioCenario(int cenario) {
 		try {
 			this.validezCenario(cenario);
-			
-			int rateio = this.totalApostasPerdedoras(cenario) - this.lucroCenario(cenario);
-			
-			if (this.cenarios.get(cenario - 1) instanceof CenarioBonificado) {
-				rateio += ((CenarioBonificado) this.cenarios.get(cenario - 1)).getBonus();
-			}
-			
-			return rateio;
+			return this.cenarios.get(cenario - 1).rateioCenario(this.taxa);
 		}
 		
 		catch (IllegalArgumentException e) {

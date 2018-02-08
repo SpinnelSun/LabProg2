@@ -80,7 +80,7 @@ public class Aposta {
 	 * @returns A representação textual da previsão da Aposta.
 	 * 
 	 */
-	private String descrevePrevisao() {
+	protected String descrevePrevisao() {
 		return (this.previsao) ? "VAI ACONTECER" : "N VAI ACONTECER";
 	}
 

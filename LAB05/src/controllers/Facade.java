@@ -62,8 +62,19 @@ public class Facade {
 		return this.sistema.cadastrarCenario(descricao);
 	}
 	
+	/**
+	 * Cadastra um novo Cenario com Bônus no Sistema de Apostas.
+	 * 
+	 * @param descricao A descrição do novo Cenario a ser cadastrado.
+	 * @param bonus O valor (em centavos) do bônus que o Cenario possuirá.
+	 * 
+	 * @return O ID do Cenario cadastrado.
+	 * 
+	 * @see Sistema#cadastrarCenario(String, int)
+	 * 
+	 */
 	public int cadastrarCenario(String descricao, int bonus) {
-		return this.sistema.cadastrarCenarioBonificado(descricao, bonus);
+		return this.sistema.cadastrarCenario(descricao, bonus);
 	}
 	
 	/**
@@ -107,6 +118,16 @@ public class Facade {
 	 */
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
 		this.sistema.cadastrarAposta(cenario, apostador, valor, previsao);
+	}
+	
+	public void cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
+			                               int valorSeguro, int custo) {
+		this.sistema.cadastrarAposta(cenario, apostador, valor, previsao, valorSeguro, custo);
+	}
+	
+	public void cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao,
+			                              double taxaSeguro, int custo) {
+		this.sistema.cadastrarAposta(cenario, apostador, valor, previsao, taxaSeguro, custo);
 	}
 	
 	/**
