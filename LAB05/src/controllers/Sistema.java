@@ -181,13 +181,13 @@ public class Sistema {
 	 * @param valor O valor (em centavos) que foi apostado.
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * 
-	 * @returns null.
+	 * @returns O ID da Aposta cadastrada.
 	 * 
 	 */
-	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
+	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
 		try {
 			this.validezCenario(cenario);
-			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao);
+			return this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao);
 		}
 		
 		catch (IllegalArgumentException e) {
@@ -206,10 +206,10 @@ public class Sistema {
 	 * @param valorSeguro O valor assegurado nessa Aposta.
 	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
 	 * 
-	 * @returns null.
+	 * @returns O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
-	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao,
+	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao,
 			                    int valorSeguro, int custo) {
 		try {
 			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
@@ -217,7 +217,7 @@ public class Sistema {
 			
 			this.caixa += custo;
 			
-			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, valorSeguro);
+			return this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, valorSeguro);
 		}
 		
 		catch (IllegalArgumentException e) {
@@ -237,10 +237,10 @@ public class Sistema {
 	 * @param taxaSeguro A taxa assegurada nessa Aposta.
 	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
 	 * 
-	 * @returns null.
+	 * @returns O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
-	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao,
+	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao,
 							    double taxaSeguro, int custo) {
 		try {
 			this.validezCenario(cenario);
@@ -248,7 +248,7 @@ public class Sistema {
 			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
 			this.caixa += custo;
 
-			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, taxaSeguro);
+			return this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, taxaSeguro);
 		}
 
 		catch (IllegalArgumentException e) {
@@ -266,13 +266,13 @@ public class Sistema {
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
 	 * 
-	 * @return null.
+	 * @returns O ID da Aposta com novo Seguro.
 	 * 
 	 */
-	public void alterarSeguroValor(int cenario, int apostaAssegurada, int valorSeguro) {
+	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valorSeguro) {
 		try {
 			this.validezCenario(cenario);
-			this.cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valorSeguro);
+			return this.cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valorSeguro);
 		}
 
 		catch (IllegalArgumentException e) {
@@ -290,13 +290,13 @@ public class Sistema {
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
 	 * 
-	 * @return null.
+	 * @returns O ID da Aposta com novo Seguro.
 	 * 
 	 */
-	public void alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxaSeguro) {
+	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxaSeguro) {
 		try {
 			this.validezCenario(cenario);
-			this.cenarios.get(cenario - 1).alterarSeguroTaxa(apostaAssegurada, taxaSeguro);
+			return this.cenarios.get(cenario - 1).alterarSeguroTaxa(apostaAssegurada, taxaSeguro);
 		}
 
 		catch (IllegalArgumentException e) {
@@ -387,6 +387,7 @@ public class Sistema {
 			this.validezCenario(cenario);
 			this.cenarios.get(cenario - 1).defineOcorrencia(ocorrencia);
 			this.caixa += this.lucroCenario(cenario);
+			this.caixa -= this.cenarios.get(cenario - 1).pagamentoSeguros();
 		}
 		
 		catch (IllegalArgumentException e) {

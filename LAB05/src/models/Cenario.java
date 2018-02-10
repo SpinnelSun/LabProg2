@@ -81,11 +81,12 @@ public class Cenario {
 	 * @param valor O valor (em centavos) que foi apostado.
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * 
-	 * @returns null.
+	 * @returns O ID da Aposta cadastrada.
 	 * 
 	 */
-	public void cadastrarAposta(String apostador, int valor, String previsao) {		 
+	public int cadastrarAposta(String apostador, int valor, String previsao) {		 
 		this.apostas.add(new Aposta(apostador, valor, previsao));
+		return this.apostas.size();
 	}
 	
 	/**
@@ -97,11 +98,12 @@ public class Cenario {
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * @param valorSeguro O valor (em centavos) assegurado na Aposta cadastrada.
 	 * 
-	 * @returns null.
+	 * @returns O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
-	public void cadastrarAposta(String apostador, int valor, String previsao, int valorSeguro) {		 
+	public int cadastrarAposta(String apostador, int valor, String previsao, int valorSeguro) {		 
 		this.apostas.add(new ApostaAssegurada(apostador, valor, previsao, valorSeguro));
+		return this.apostas.size();
 	}
 	
 	/**
@@ -113,39 +115,52 @@ public class Cenario {
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * @param taxaSeguro A taxa assegurada na Aposta cadastrada.
 	 * 
-	 * @returns null.
+	 * @returns O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
-	public void cadastrarAposta(String apostador, int valor, String previsao, double taxaSeguro) {		 
+	public int cadastrarAposta(String apostador, int valor, String previsao, double taxaSeguro) {		 
 		this.apostas.add(new ApostaAssegurada(apostador, valor, previsao, taxaSeguro));
+		return this.apostas.size();
 	}
 	
 	/**
 	 * A partir dos parâmetros recebidos, modifica o Seguro de uma Aposta com Seguro previamente ca-
-	 * dastrada no Sistema, dando-lhe um novo Seguro por Valor. 
+	 * dastrada no Sistema, dando-lhe um novo Seguro por Valor. Ocorre o lançamento de uma exceção
+	 * caso se tente alterar o Seguro de uma Aposta comum.
 	 * 
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
 	 * 
-	 * @return null.
+	 * @returns O ID da Aposta com novo Seguro.
 	 * 
 	 */
-	public void alterarSeguroValor(int apostaAssegurada, int valorSeguro) {		 
-		((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(valorSeguro);
+	public int alterarSeguroValor(int apostaAssegurada, int valorSeguro) {
+		if (this.apostas.get(apostaAssegurada - 1) instanceof ApostaAssegurada) {
+			((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(valorSeguro);
+			return apostaAssegurada;
+		}
+		
+		throw new IllegalArgumentException("ESSA APOSTA NÃO POSSUI SEGURO!");
 	}
 	
 	/**
 	 * A partir dos parâmetros recebidos, modifica o Seguro de uma Aposta com Seguro previamente ca-
-	 * dastrada no Sistema, dando-lhe um novo Seguro por Taxa. 
+	 * dastrada no Sistema, dando-lhe um novo Seguro por Taxa. Ocorre o lançamento de uma exceção
+	 * caso se tente alterar o Seguro de uma Aposta comum.
 	 * 
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
 	 * 
-	 * @return null.
+	 * @returns O ID da Aposta com novo Seguro.
 	 * 
 	 */
-	public void alterarSeguroTaxa(int apostaAssegurada, double taxaSeguro) {
-		((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(taxaSeguro);
+	public int alterarSeguroTaxa(int apostaAssegurada, double taxaSeguro) {
+		if (this.apostas.get(apostaAssegurada - 1) instanceof ApostaAssegurada) {
+			((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(taxaSeguro);
+			return apostaAssegurada;
+		}
+		
+		throw new IllegalArgumentException("ESSA APOSTA NÃO POSSUI SEGURO!");	
 	}
 	
 	/**
@@ -211,7 +226,7 @@ public class Cenario {
 		
 		for (Aposta aposta : this.apostas) {
 			if (aposta.getPrevisao() != ocorrencia) {
-					total += aposta.perdaGerada();
+					total += aposta.getValor();
 			}
 		}
 		
@@ -229,6 +244,32 @@ public class Cenario {
 	 */
 	public int lucroCenario(double taxa) {
 		return (int) Math.floor(this.totalApostasPerdedoras() * taxa);
+	}
+	
+	/**
+	 * Retorna o custo total gerado pelo pagamento dos Seguros das ApostasAsseguradas perdedoras ca-
+	 * dastradas no Cenario. Caso esse método seja executado por um Cenario ainda aberto, uma exce-
+	 * ção adequada é lançada.
+	 * 
+	 * @returns O valor total (em centavos) que será pago devido aos Seguros no Cenario.
+	 * 
+	 */
+	public int pagamentoSeguros() {
+		if (this.estado.equals(Estado.NAO_FINALIZADO)) {
+			throw new IllegalArgumentException("Cenario ainda esta aberto");
+		}
+		
+		int perdasGeradas = 0;
+		boolean ocorrencia = (this.estado.equals(Estado.FINALIZADO_OCORREU)) ? true : false;
+		
+		for (Aposta aposta : this.apostas) {
+			if (aposta.getPrevisao() != ocorrencia) {
+					perdasGeradas += aposta.perdaGerada();
+			}
+		}
+		
+		return this.totalApostasPerdedoras() - perdasGeradas;
+		
 	}
 	
 	/**

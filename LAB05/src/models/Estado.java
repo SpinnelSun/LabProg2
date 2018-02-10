@@ -32,7 +32,7 @@ public enum Estado {
 	/**
 	 * Retorna a String que define o Estado.
 	 * 
-	 * @return A representação textual de um Estado.
+	 * @returns A representação textual de um Estado.
 	 * 
 	 */
 	@Override
