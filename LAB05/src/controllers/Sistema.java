@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import models.Cenario;
 import models.CenarioBonificado;
 import utility.Validador;
@@ -8,7 +10,7 @@ import utility.Validador;
 /**
  * Representação de um Sistema de apostas em que serão registrados diversos Cenarios sobre os quais
  * se farão Apostas. Como atributos, um Sistema possui um valor (em centavos) de caixa e um double
- * que representa o percentual de ganho do caixa em cima das apostas perdedoras.
+ * que representa o percentual de ganho do caixa sobre as apostas perdedoras.
  * 
  * Laboratório de Programação 2 - Lab 05
  * @author Matheus Alves dos Santos - 117110503
@@ -18,7 +20,7 @@ public class Sistema {
 	
 	private int caixa;
 	private double taxa;
-	private ArrayList<Cenario> cenarios;
+	private List<Cenario> cenarios;
 	
 	/**
 	 * Constrói um Sistema a partir do seu valor inicial (em centavos) em caixa e da taxa de ganho
@@ -105,7 +107,7 @@ public class Sistema {
 	 * dastrado. Caso algum parâmetro gere o lançamento de exceção, ela é tratada e relançada, vi-
 	 * sando melhor interação com o usuário. 
 	 * 
-	 * @param descricao A descrição do Cenario queBonificado será cadastrado.
+	 * @param descricao A descrição do CenarioBonificado que será cadastrado.
 	 * @param bonus O valor de bônus que o CenarioBonificado possuirá.
 	 * 
 	 * @returns O ID do CenarioBonificado cadastrado.
@@ -113,8 +115,7 @@ public class Sistema {
 	 */
 	public int cadastrarCenario(String descricao, int bonus) {
 		try {
-			Validador.validarPositiveInteger("Bonus invalido", bonus);
-			Validador.validarLessEqualThan("BÔNUS MUITO ALTO!", bonus, this.caixa);
+			Validador.validarLessEqualThan("O CAIXA NÃO SUPORTA ESSE BÔNUS!", bonus, this.caixa);
 			
 			this.cenarios.add(new CenarioBonificado(this.cenarios.size() + 1, descricao, bonus));
 			this.caixa -= bonus;
@@ -189,37 +190,56 @@ public class Sistema {
 			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao);
 		}
 		
-		catch (IllegalArgumentException e1) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta: " + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta: " + e2.getMessage());
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro no cadastro de aposta: " + e.getMessage());
 		}
 	}
 	
+	/**
+	 * A partir dos parâmetros recebidos, cadastra uma nova Aposta com Seguro por Valor em um Ce-
+	 * nario já registrado no Sistema. Caso algum parâmetro gere o lançamento de exceção, ela é
+	 * tratada e relançada, visando melhor interação com o usuário.  
+	 * 
+	 * @param cenario O ID do Cenario que se deseja acessar.
+	 * @param apostador O nome da pessoa que fez a Aposta.
+	 * @param valor O valor (em centavos) que foi apostado.
+	 * @param valorSeguro O valor assegurado nessa Aposta.
+	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao,
 			                    int valorSeguro, int custo) {
 		try {
+			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
 			this.validezCenario(cenario);
 			
-			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
 			this.caixa += custo;
 			
 			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, valorSeguro);
 		}
 		
-		catch (IllegalArgumentException e1) {
+		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: "
-		                                       + e1.getMessage());
-		}
-		
-		catch (NullPointerException e2) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por valor: "
-		                                       + e2.getMessage());
+		                                       + e.getMessage());
 		}
 	}
 	
+	/**
+	 * A partir dos parâmetros recebidos, cadastra uma nova Aposta com Seguro por Taxa em um Ce-
+	 * nario já registrado no Sistema. Caso algum parâmetro gere o lançamento de exceção, ela é
+	 * tratada e relançada, visando melhor interação com o usuário.  
+	 * 
+	 * @param cenario O ID do Cenario que se deseja acessar.
+	 * @param apostador O nome da pessoa que fez a Aposta.
+	 * @param valor O valor (em centavos) que foi apostado.
+	 * @param taxaSeguro A taxa assegurada nessa Aposta.
+	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
+	 * 
+	 * @returns null.
+	 * 
+	 */
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao,
 							    double taxaSeguro, int custo) {
 		try {
@@ -231,18 +251,59 @@ public class Sistema {
 			this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, taxaSeguro);
 		}
 
-		catch (IllegalArgumentException e1) {
+		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: "
-												+ e1.getMessage());
-		}
-
-		catch (NullPointerException e2) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta assegurada por taxa: "
-												+ e2.getMessage());
+												+ e.getMessage());
 		}
 	}
 	
+	/**
+	 * A partir dos parâmetros recebidos, modifica o Seguro de uma Aposta com Seguro previamente ca-
+	 * dastrada no Sistema, dando-lhe um novo Seguro por Valor. Caso algum parâmetro gere o lançamen-
+	 * to de exceção, ela é tratada e relançada, visando melhor interação com o usuário. 
+	 * 
+	 * @param cenario O ID do Cenario que contém a Aposta.
+	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
+	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
+	 * 
+	 * @return null.
+	 * 
+	 */
+	public void alterarSeguroValor(int cenario, int apostaAssegurada, int valorSeguro) {
+		try {
+			this.validezCenario(cenario);
+			this.cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valorSeguro);
+		}
+
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na alteração para seguro por valor: "
+												+ e.getMessage());
+		}
+	}
 	
+	/**
+	 * A partir dos parâmetros recebidos, modifica o Seguro de uma Aposta com Seguro previamente ca-
+	 * dastrada no Sistema, dando-lhe um novo Seguro por Taxa. Caso algum parâmetro gere o lançamen-
+	 * to de exceção, ela é tratada e relançada, visando melhor interação com o usuário. 
+	 * 
+	 * @param cenario O ID do Cenario que contém a Aposta.
+	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
+	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
+	 * 
+	 * @return null.
+	 * 
+	 */
+	public void alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxaSeguro) {
+		try {
+			this.validezCenario(cenario);
+			this.cenarios.get(cenario - 1).alterarSeguroTaxa(apostaAssegurada, taxaSeguro);
+		}
+
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na alteração para seguro por taxa: "
+												+ e.getMessage());
+		}
+	}
 	
 	/**
 	 * Retorna o valor total (em centavos) que foi apostado em um dos Cenarios registrados no Sis-
@@ -371,7 +432,8 @@ public class Sistema {
 		}
 		
 		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: " + e.getMessage());
+			throw new IllegalArgumentException("Erro na consulta do total de rateio do cenario: "
+												+ e.getMessage());
 		}
 	}
 	

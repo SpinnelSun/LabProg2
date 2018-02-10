@@ -65,10 +65,10 @@ public class Facade {
 	/**
 	 * Cadastra um novo Cenario com Bônus no Sistema de Apostas.
 	 * 
-	 * @param descricao A descrição do novo Cenario a ser cadastrado.
-	 * @param bonus O valor (em centavos) do bônus que o Cenario possuirá.
+	 * @param descricao A descrição do novo Cenario com Bônus a ser cadastrado.
+	 * @param bonus O valor (em centavos) do bônus que esse Cenario possuirá.
 	 * 
-	 * @return O ID do Cenario cadastrado.
+	 * @return O ID do Cenario com Bônus cadastrado.
 	 * 
 	 * @see Sistema#cadastrarCenario(String, int)
 	 * 
@@ -120,14 +120,78 @@ public class Facade {
 		this.sistema.cadastrarAposta(cenario, apostador, valor, previsao);
 	}
 	
+	/**
+	 * Cadastra uma nova Aposta com Seguro por Valor em um dos Cenarios cadastrados no Sistema de
+	 * Apostas.
+	 * 
+	 * @param cenario O ID do Cenario que receberá a Aposta.
+	 * @param apostador O nome do apostador.
+	 * @param valor O valor apostado.
+	 * @param previsao A previsão da Aposta.
+	 * @param valorSeguro O valor assegurado nessa Aposta.
+	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
+	 * 
+	 * @return null.
+	 * 
+	 * @see Sistema#cadastrarAposta(int, String, int, String, int, int)
+	 * 
+	 */
 	public void cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
 			                               int valorSeguro, int custo) {
 		this.sistema.cadastrarAposta(cenario, apostador, valor, previsao, valorSeguro, custo);
 	}
 	
+	/**
+	 * Cadastra uma nova Aposta com Seguro por Taxa em um dos Cenarios cadastrados no Sistema de
+	 * Apostas.
+	 * 
+	 * @param cenario O ID do Cenario que receberá a Aposta.
+	 * @param apostador O nome do apostador.
+	 * @param valor O valor apostado.
+	 * @param previsao A previsão da Aposta.
+	 * @param taxaSeguro A taxa assegurada nessa Aposta.
+	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
+	 * 
+	 * @return null.
+	 * 
+	 * @see Sistema#cadastrarAposta(int, String, int, String, double, int)
+	 * 
+	 */
 	public void cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao,
 			                              double taxaSeguro, int custo) {
 		this.sistema.cadastrarAposta(cenario, apostador, valor, previsao, taxaSeguro, custo);
+	}
+	
+	/**
+	 * Modifica uma Aposta com Seguro para que tenha um novo Seguro por Valor.
+	 * 
+	 * @param cenario O ID do Cenario que contém a Aposta.
+	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
+	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
+	 * 
+	 * @return null.
+	 * 
+	 * @see Sistema#alterarSeguroValor(int, int, int)
+	 * 
+	 */
+	public void alterarSeguroValor(int cenario, int apostaAssegurada, int valorSeguro) {
+		this.sistema.alterarSeguroValor(cenario, apostaAssegurada, valorSeguro);
+	}
+	
+	/**
+	 * Modifica uma Aposta com Seguro para que tenha um novo Seguro por Taxa.
+	 * 
+	 * @param cenario O ID do Cenario que contém a Aposta.
+	 * @param apostaAssegurada O ID da Aposta que terá seu seguro modificado.
+	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
+	 * 
+	 * @return null.
+	 * 
+	 * @see Sistema#alterarSeguroValor(int, int, double)
+	 * 
+	 */
+	public void alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxaSeguro) {
+		this.sistema.alterarSeguroTaxa(cenario, apostaAssegurada, taxaSeguro);
 	}
 	
 	/**
@@ -135,7 +199,7 @@ public class Facade {
 	 * 
 	 * @param cenario O ID do Cenario a ser avaliado.
 	 * 
-	 * @return O valor total apostato no Cenario.
+	 * @return O valor total apostado no Cenario.
 	 * 
 	 * @see Sistema#valorTotalDeApostas(int)
 	 * 

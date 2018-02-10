@@ -1,6 +1,8 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import utility.Validador;
 
 /**
@@ -17,7 +19,7 @@ public class Cenario {
 	private int numeracao;
 	private String descricao;
 	private Estado estado;
-	private ArrayList<Aposta> apostas;
+	private List<Aposta> apostas;
 	
 
 	/**
@@ -87,6 +89,66 @@ public class Cenario {
 	}
 	
 	/**
+	 * A partir dos parâmetros recebidos, constroi uma nova Aposta com Seguro por Valor e a adicio-
+	 * na à lista de Apostas que é atributo do Cenario.
+	 * 
+	 * @param apostador O nome da pessoa que fez a Aposta.
+	 * @param valor O valor (em centavos) que foi apostado.
+	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
+	 * @param valorSeguro O valor (em centavos) assegurado na Aposta cadastrada.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void cadastrarAposta(String apostador, int valor, String previsao, int valorSeguro) {		 
+		this.apostas.add(new ApostaAssegurada(apostador, valor, previsao, valorSeguro));
+	}
+	
+	/**
+	 * A partir dos parâmetros recebidos, constroi uma nova Aposta com Seguro por Taxa e a adicio-
+	 * na à lista de Apostas que é atributo do Cenario.
+	 * 
+	 * @param apostador O nome da pessoa que fez a Aposta.
+	 * @param valor O valor (em centavos) que foi apostado.
+	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
+	 * @param taxaSeguro A taxa assegurada na Aposta cadastrada.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void cadastrarAposta(String apostador, int valor, String previsao, double taxaSeguro) {		 
+		this.apostas.add(new ApostaAssegurada(apostador, valor, previsao, taxaSeguro));
+	}
+	
+	/**
+	 * A partir dos parâmetros recebidos, modifica o Seguro de uma Aposta com Seguro previamente ca-
+	 * dastrada no Sistema, dando-lhe um novo Seguro por Valor. 
+	 * 
+	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
+	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
+	 * 
+	 * @return null.
+	 * 
+	 */
+	public void alterarSeguroValor(int apostaAssegurada, int valorSeguro) {		 
+		((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(valorSeguro);
+	}
+	
+	/**
+	 * A partir dos parâmetros recebidos, modifica o Seguro de uma Aposta com Seguro previamente ca-
+	 * dastrada no Sistema, dando-lhe um novo Seguro por Taxa. 
+	 * 
+	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
+	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
+	 * 
+	 * @return null.
+	 * 
+	 */
+	public void alterarSeguroTaxa(int apostaAssegurada, double taxaSeguro) {
+		((ApostaAssegurada) this.apostas.get(apostaAssegurada - 1)).setSeguro(taxaSeguro);
+	}
+	
+	/**
 	 * Retorna o valor total (em centavos) que foi apostado no Cenario até o momento. O valor total
 	 * é a soma do valor de cada Aposta registrada no Cenario.
 	 * 
@@ -149,7 +211,7 @@ public class Cenario {
 		
 		for (Aposta aposta : this.apostas) {
 			if (aposta.getPrevisao() != ocorrencia) {
-					total += aposta.getValor();
+					total += aposta.perdaGerada();
 			}
 		}
 		

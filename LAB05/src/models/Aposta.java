@@ -83,6 +83,16 @@ public class Aposta {
 	protected String descrevePrevisao() {
 		return (this.previsao) ? "VAI ACONTECER" : "N VAI ACONTECER";
 	}
+	
+	/**
+	 * Retorna a perda que a Aposta poderá causar ao apostador caso a previsão não se concretize.
+	 * 
+	 * @returns A perda (em centavos) que a Aposta é capaz de causar ao apostador.
+	 * 
+	 */
+	public int perdaGerada() {
+		return this.getValor();
+	}
 
 	/**
 	 * Retorna a String que representa a Aposta. Utiliza o padrão "NOME DO APOSTADOR - VALOR EM

@@ -2,6 +2,8 @@ package models;
 
 import java.text.DecimalFormat;
 
+import utility.Validador;
+
 /**
  * Representação de um Cenario com Bônus criado num Sistema, sobre o qual serão feitas Apostas. Além
  * dos atributos herdados de Cenario, o CenarioBonificado possui um int que representa o valor do
@@ -27,6 +29,8 @@ public class CenarioBonificado extends Cenario {
 	 */
 	public CenarioBonificado(int numeracao, String descricao, int bonus) {
 		super(numeracao, descricao);
+		
+		Validador.validarPositiveInteger("Bonus invalido", bonus);
 		this.bonus = bonus;
 	}
 	
