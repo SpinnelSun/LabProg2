@@ -53,3 +53,5 @@ expectError "Erro no cadastro de aposta assegurada por taxa: Previsao invalida" 
 expectError "Erro no cadastro de aposta assegurada por taxa: Previsao invalida" cadastrarApostaSeguraTaxa cenario=7 apostador="Mano Walter" valor=501 previsao="N ACONTECER" taxa=0.02 custo=50
 expectError "Erro no cadastro de aposta assegurada por taxa: Previsao nao pode ser vazia ou nula" cadastrarApostaSeguraTaxa cenario=7 apostador="Mano Walter" valor=501 previsao="" taxa=0.02 custo=50
 expectError "Erro no cadastro de aposta assegurada por taxa: Previsao nao pode ser vazia ou nula" cadastrarApostaSeguraTaxa cenario=7 apostador="Mano Walter" valor=501 previsao="  " taxa=0.02 custo=50
+
+#
