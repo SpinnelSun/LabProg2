@@ -216,7 +216,7 @@ public class Cenario {
 	 * @returns O valor total (em centavos) das Apostas perdedoras do Cenario.
 	 * 
 	 */
-	private int totalApostasPerdedoras() {
+	public int totalApostasPerdedoras() {
 		if (this.estado.equals(Estado.NAO_FINALIZADO)) {
 			throw new IllegalArgumentException("Cenario ainda esta aberto");
 		}

@@ -276,7 +276,7 @@ public class Sistema {
 		}
 
 		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na alteração para seguro por valor: "
+			throw new IllegalArgumentException("Erro na alteracao para seguro por valor: "
 												+ e.getMessage());
 		}
 	}
@@ -300,7 +300,7 @@ public class Sistema {
 		}
 
 		catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Erro na alteração para seguro por taxa: "
+			throw new IllegalArgumentException("Erro na alteracao para seguro por taxa: "
 												+ e.getMessage());
 		}
 	}

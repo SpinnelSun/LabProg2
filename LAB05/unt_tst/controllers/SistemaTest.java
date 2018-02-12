@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import models.Cenario;
-
 public class SistemaTest {
 	
 	private Sistema sistema1;
@@ -22,11 +20,16 @@ public class SistemaTest {
 		sistema2.cadastrarCenario("O novo anime de Sakura Card Captors vai ser lindo");
 		sistema3.cadastrarCenario("Eu vou conseguir terminar esse Lab antes das 17h");
 		
+		sistema2.cadastrarCenario("Tomoyo vai ser a vilã dessa temporada", 10);
+		
 		sistema3.cadastrarAposta(1, "Matheus Alves", 10000, "N VAI ACONTECER");
 		sistema3.cadastrarAposta(1, "Sevla Suetham", 15000, "N VAI ACONTECER");
 		sistema3.cadastrarAposta(1, "Lasev Hamsuet", 12525, "VAI ACONTECER");
 		sistema3.cadastrarAposta(1, "Vesla Teusmah", 15252, "VAI ACONTECER");
 		sistema3.cadastrarAposta(1, "Alsev Hamteus", 21521, "VAI ACONTECER");
+		
+		sistema2.cadastrarAposta(2, "Matheus Alves", 100, "N VAI ACONTECER");
+		sistema2.cadastrarAposta(2, "Sevla Suetham", 150, "VAI ACONTECER");
 	}
 
 	@Test
@@ -52,8 +55,6 @@ public class SistemaTest {
 		String msg = "Avaliação da exceção lançada ao se tentar acessar um Cenario com numeração negativa.";
 		sistema2.cadastrarAposta(-1, "Matheus Alves", 10000, "VAI ACONTECER");
 	}
-	
-
 
 	@Test
 	public void testCadastrarCenario() {
@@ -61,12 +62,26 @@ public class SistemaTest {
 		String msg = "Avaliação do armazenamento adequado de um novo Cenario no Sistema.";
 		assertTrue(msg, sistema1.getQtdCenarios() == 1);
 	}
+	
+	@Test
+	public void testCadastrarCenarioBonificado() {
+		sistema1.cadastrarCenario("Tomoyo vai ser a vilã dessa temporada", 10);
+		String msg = "Avaliação do armazenamento adequado de um novo CenarioBonificado no Sistema.";
+		assertTrue(msg, sistema1.getQtdCenarios() == 1);
+	}
 
 	@Test
 	public void testExibirCenario() {
-		String msg = "Avaliação da equivalência entre a exibição de um Cenário e seu toString.";
+		String msg = "Avaliação da equivalência entre a exibição de um Cenario e seu toString.";
 		assertEquals(msg, sistema2.exibirCenario(1), "1 - O novo anime de Sakura Card Captors vai ser lindo "
 				                                   + "- Nao finalizado");
+	}
+	
+	@Test
+	public void testExibirCenarioBonificado() {
+		String msg = "Avaliação da equivalência entre a exibição de um CenarioBonificado e seu toString.";
+		assertEquals(msg, sistema2.exibirCenario(2), "2 - Tomoyo vai ser a vilã dessa temporada - Nao "
+				                                      + "finalizado - R$ 0,10");
 	}
 
 	@Test
@@ -78,14 +93,10 @@ public class SistemaTest {
 		
 		listagemEsperada += "1 - O novo anime de Sakura Card Captors vai ser lindo - Nao finalizado"
 		                    + System.lineSeparator();
-		String msg2 = "Avaliação da listagem de Cenarios de um Sistema com um Cenario registrado.";
+		listagemEsperada += "2 - Tomoyo vai ser a vilã dessa temporada - Nao finalizado - R$ 0,10"
+                + System.lineSeparator();
+		String msg2 = "Avaliação da listagem de Cenarios de um Sistema com Cenarios registrados.";
 		assertEquals(msg2, sistema2.listarCenarios(), listagemEsperada);
-		
-		sistema2.cadastrarCenario("O novo filme de Star Wars vai ser um pisão");
-		listagemEsperada += "2 - O novo filme de Star Wars vai ser um pisão - Nao finalizado"
-                            + System.lineSeparator();
-		String msg3 = "Avaliação da listagem de Cenarios de um Sistema com vários Cenarios registrados.";
-		assertEquals(msg3, sistema2.listarCenarios(), listagemEsperada);
 	}
 	
 	
@@ -101,15 +112,29 @@ public class SistemaTest {
 	@Test
 	public void testLucroCenario() {
 		sistema3.encerrarCenario(1, false);
-		String msg = "Avaliação do cálculo adequado do lucro de um Cenário encerrado.";
+		String msg = "Avaliação do cálculo adequado do lucro de um Cenario encerrado.";
 		assertTrue(msg, sistema3.lucroCenario(1) == 4929);
+	}
+	
+	@Test
+	public void testLucroCenarioBonificado() {
+		sistema2.encerrarCenario(2, true);
+		String msg = "Avaliação do cálculo adequado do lucro de um CenarioBonificado encerrado.";
+		assertTrue(msg, sistema2.lucroCenario(2) == 10);
 	}
 
 	@Test
 	public void testRateioCenario() {
 		sistema3.encerrarCenario(1, false);
-		String msg = "Avaliação do cálculo adequado do valor para rateio de um Cenário encerrado.";
+		String msg = "Avaliação do cálculo adequado do valor para rateio de um Cenario encerrado.";
 		assertTrue(msg, sistema3.rateioCenario(1) == 44369);
+	}
+	
+	@Test
+	public void testRateioCenarioBonificado() {
+		sistema2.encerrarCenario(2, true);
+		String msg = "Avaliação do cálculo adequado do valor para rateio de um CenarioBonificado encerrado.";
+		assertTrue(msg, sistema2.rateioCenario(2) == 100);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

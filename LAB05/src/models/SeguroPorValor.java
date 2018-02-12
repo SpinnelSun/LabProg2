@@ -30,6 +30,10 @@ public class SeguroPorValor implements Seguro {
 		this.valorAssegurado = valorAssegurado;
 	}
 
+	public int getValorAssegurado() {
+		return this.valorAssegurado;
+	}
+
 	/**
 	 * Implementação do método de Seguro que calcula qual o valor assegurado por esse Seguro. Para
 	 * SeguroPorValor, será retornado exatamente o valor do atributo valorAssegurado.

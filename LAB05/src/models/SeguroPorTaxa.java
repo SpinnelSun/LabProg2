@@ -23,6 +23,10 @@ public class SeguroPorTaxa implements Seguro {
 		this.taxaAssegurada = taxaAssegurada;
 	}
 
+	public double getTaxaAssegurada() {
+		return this.taxaAssegurada;
+	}
+
 	/**
 	 * Implementação do método de Seguro que calcula qual o valor assegurado por esse Seguro. Para
 	 * SeguroPorTaxa, será retornado o produto da taxaAssegurada pelo valor total que foi apostado.

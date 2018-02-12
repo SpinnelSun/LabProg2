@@ -30,6 +30,12 @@ public class ApostaTest {
 		String msg4 = "Avaliação do armazenamento adequado da previsão negativa em uma Aposta.";
 		assertTrue(msg4, aposta2.getPrevisao() == false);
 	}
+	
+	@Test
+	public void testPerdaGerada() {
+		String msg = "Avaliação da perda gerada por um Aposta sem Seguro.";
+		assertEquals(msg, aposta1.perdaGerada(), aposta1.getValor());
+	}
 
 	@Test
 	public void testToString() {
