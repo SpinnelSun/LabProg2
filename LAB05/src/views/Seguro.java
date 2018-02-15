@@ -1,4 +1,4 @@
-package models;
+package views;
 
 /**
  * Representação em interface do Seguro de uma Aposta Assegurada, visando a melhor interação do Sis-

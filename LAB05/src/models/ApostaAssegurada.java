@@ -1,6 +1,7 @@
 package models;
 
 import utility.Validador;
+import views.Seguro;
 
 /**
  * Representação de uma Aposta com Seguro feita num Sistema, relativa à ocorrência de um Cenario.

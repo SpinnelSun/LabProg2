@@ -1,5 +1,7 @@
 package models;
 
+import views.Seguro;
+
 /**
  * Representação de um Seguro baseado num percentual do valor apostado em uma Aposta Assegurada fei-
  * ta num Sistema. Essa classe implementa a interface Seguro e tem como atributo a taxa do valor a-

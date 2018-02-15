@@ -3,6 +3,7 @@ package models;
 import java.text.DecimalFormat;
 
 import utility.Validador;
+import views.Seguro;
 
 /**
  * Representação de um Seguro baseado no valor apostado em uma Aposta Assegurada feita num Sistema.
