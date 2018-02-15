@@ -38,7 +38,7 @@ public class Cenario {
 		
 		this.numeracao = numeracao;
 		this.descricao = descricao;
-		estado = Estado.NAO_FINALIZADO;
+		this.estado = Estado.NAO_FINALIZADO;
 		this.apostas = new ArrayList<>();
 	}
 	

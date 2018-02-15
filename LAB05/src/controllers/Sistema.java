@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import models.Cenario;
@@ -9,8 +10,9 @@ import utility.Validador;
 
 /**
  * Representação de um Sistema de apostas em que serão registrados diversos Cenarios sobre os quais
- * se farão Apostas. Como atributos, um Sistema possui um valor (em centavos) de caixa e um double
- * que representa o percentual de ganho do caixa sobre as apostas perdedoras.
+ * se farão Apostas. Como atributos, um Sistema possui um valor (em centavos) de caixa, um double
+ * que representa o percentual de ganho do caixa sobre as apostas perdedoras, a List dos Cenarios
+ * cadastrados e um Comparator que define a ordenação desses Cenarios.
  * 
  * Laboratório de Programação 2 - Lab 05
  * @author Matheus Alves dos Santos - 117110503
@@ -21,6 +23,7 @@ public class Sistema {
 	private int caixa;
 	private double taxa;
 	private List<Cenario> cenarios;
+	private Comparator<Cenario> ordenador;
 	
 	/**
 	 * Constrói um Sistema a partir do seu valor inicial (em centavos) em caixa e da taxa de ganho
@@ -40,6 +43,7 @@ public class Sistema {
 			this.caixa = caixa;
 			this.taxa = taxa;
 			this.cenarios = new ArrayList<>();
+			this.ordenador = new CenarioPorNumeracao();
 		} 
 		
 		catch (IllegalArgumentException e) {
@@ -61,6 +65,35 @@ public class Sistema {
 
 	public void setCaixa(int caixa) {
 		this.caixa = caixa;
+	}
+	
+	/**
+	 * Modifica a ordenação dos Cenarios cadastrados no Sistema de Apostas. Caso a String recebida
+	 * como parâmetro não siga o padrão esperado, uma exceção adequada será lançada. 
+	 * 
+	 * @param ordem A String que define a nova ordenação dos Cenarios.
+	 * 
+	 * @returns null.
+	 * 
+	 */
+	public void alterarOrdem(String ordem) {
+		switch (ordem) {
+
+		case "cadastro":
+			this.ordenador = new CenarioPorNumeracao();
+			break;
+
+		case "nome":
+			this.ordenador = new CenarioPorDescricao();
+			break;
+
+		case "apostas":
+			this.ordenador = new CenarioPorApostas();
+			break;
+			
+		default:
+			throw new IllegalArgumentException("ORDEM INVÁLIDA!");
+		};
 	}
 	
 	/**
@@ -150,6 +183,33 @@ public class Sistema {
 		
 		catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro na consulta de cenario: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Retorna a representação textual do Cenario cujo posição na listagem (utilizando a atual orde-
+	 * nação dos Cenarios) é o parâmetro desse método. Caso algum parâmetro gere o lançamento de ex-
+	 * ceção, ela é tratada e relançada, visando melhor interação com o usuário.  
+	 * 
+	 * @param cenario A posição do Cenario na listagem (ordenação atual).
+	 * 
+	 * @returns A String que representa o Cenario acessado.
+	 * 
+	 */
+	public String exibirCenarioOrdenado(int cenario) {
+		try {
+			this.validezCenario(cenario);
+			
+			List<Cenario> cenariosOrdenados = new ArrayList<>();
+			
+			this.cenarios.addAll(cenariosOrdenados);
+			cenariosOrdenados.sort(this.ordenador);
+			
+			return cenariosOrdenados.get(cenario - 1).toString();
+		} 
+		
+		catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro na consulta de cenario ordenado: " + e.getMessage());
 		}
 	}
 	

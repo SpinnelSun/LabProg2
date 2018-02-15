@@ -92,6 +92,20 @@ public class Facade {
 	}
 	
 	/**
+	 * Exibe um Cenario cadastrado no Sistema de Apostas a partir da ordenação adotada atualmente.
+	 * 
+	 * @param cenario A posição do Cenario na ordenação atual do Sistema.
+	 * 
+	 * @returns A representação textual do Cenario.
+	 * 
+	 * @see Sistema#exibirCenarioOrdenado(int)
+	 * 
+	 */
+	public String exibirCenarioOrdenado(int cenario) {
+		return this.sistema.exibirCenarioOrdenado(cenario);
+	}
+	
+	/**
 	 * Exibe todos os Cenarios cadastrados no Sistema de Apostas.
 	 * 
 	 * @returns A listagem de Cenarios registrados.
@@ -160,6 +174,20 @@ public class Facade {
 	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao,
 			                              double taxaSeguro, int custo) {
 		return this.sistema.cadastrarAposta(cenario, apostador, valor, previsao, taxaSeguro, custo);
+	}
+	
+	/**
+	 * Modifica a ordenação dos Cenarios cadastrados no Sistema de Apostas.
+	 * 
+	 * @param ordem A descrição da ordem a ser adotada pelo Sistema.
+	 * 
+	 * @returns null
+	 * 
+	 * @see Sistema#alterarOrdem(String)
+	 * 
+	 */
+	public void alterarOrdem(String ordem) {
+		this.sistema.alterarOrdem(ordem);
 	}
 	
 	/**
