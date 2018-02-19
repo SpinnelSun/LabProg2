@@ -27,7 +27,7 @@ public class CenarioPorApostas implements Comparator<Cenario> {
 	 */
 	@Override
 	public int compare(Cenario c1, Cenario c2) {
-		if (c1.totalApostasPerdedoras() == c2.totalApostasPerdedoras()) {
+		if (c1.totalDeApostas() == c2.totalDeApostas()) {
 			return c1.getNumeracao() - c2.getNumeracao();
 		}
 		
