@@ -25,6 +25,10 @@ public class Sistema {
 	private List<Cenario> cenarios;
 	private Comparator<Cenario> ordenador;
 	
+	private final static String POR_NUMERACAO = "cadastro";
+	private final static String POR_DESCRICAO = "nome";
+	private final static String POR_APOSTAS = "apostas";
+	
 	/**
 	 * Constrói um Sistema a partir do seu valor inicial (em centavos) em caixa e da taxa de ganho
 	 * de seu caixa sobre as apostas perdedoras. Não é permitida a criação de um Sistema com caixa
@@ -80,17 +84,17 @@ public class Sistema {
 		try {
 			Validador.validarNotEmptyNotNull("Ordem nao pode ser vazia ou nula", ordem);
 			
-			switch (ordem) {
+			switch (ordem.toLowerCase()) {
 
-			case "cadastro":
+			case POR_NUMERACAO:
 				this.ordenador = new CenarioPorNumeracao();
 				break;
 
-			case "nome":
+			case POR_DESCRICAO:
 				this.ordenador = new CenarioPorDescricao();
 				break;
 
-			case "apostas":
+			case POR_APOSTAS:
 				this.ordenador = new CenarioPorApostas();
 				break;
 				
@@ -101,7 +105,6 @@ public class Sistema {
 		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Erro ao alterar ordem: " + e.getMessage());
 		}
-		
 	}
 	
 	/**

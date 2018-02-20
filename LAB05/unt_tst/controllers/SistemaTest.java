@@ -154,5 +154,17 @@ public class SistemaTest {
 		String msg = "Avaliação da inicialização da taxa de um Sistema com valor inválido.";
 		Sistema sistema = new Sistema(1000, 2.00);
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+    public void testOrdenacaoInvalida() {
+		String msg = "Avaliação do exceção lançada ao tentar ordenar os Cenarios erroneamente.";
+		this.sistema1.alterarOrdem("AAA");
+    }
+	
+	/*
+	 * Os demais testes referentes à Parte 03 são feitos nos testes de unidade das classes que im-
+	 * plementam Comparator.
+	 * 
+	 */
 
 }
