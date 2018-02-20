@@ -77,23 +77,31 @@ public class Sistema {
 	 * 
 	 */
 	public void alterarOrdem(String ordem) {
-		switch (ordem) {
-
-		case "cadastro":
-			this.ordenador = new CenarioPorNumeracao();
-			break;
-
-		case "nome":
-			this.ordenador = new CenarioPorDescricao();
-			break;
-
-		case "apostas":
-			this.ordenador = new CenarioPorApostas();
-			break;
+		try {
+			Validador.validarNotEmptyNotNull("Ordem nao pode ser vazia ou nula", ordem);
 			
-		default:
-			throw new IllegalArgumentException("ORDEM INVÁLIDA!");
-		};
+			switch (ordem) {
+
+			case "cadastro":
+				this.ordenador = new CenarioPorNumeracao();
+				break;
+
+			case "nome":
+				this.ordenador = new CenarioPorDescricao();
+				break;
+
+			case "apostas":
+				this.ordenador = new CenarioPorApostas();
+				break;
+				
+			default:
+				throw new IllegalArgumentException("Ordem invalida");
+			};
+			
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Erro ao alterar ordem: " + e.getMessage());
+		}
+		
 	}
 	
 	/**
@@ -201,8 +209,7 @@ public class Sistema {
 			this.validezCenario(cenario);
 			
 			List<Cenario> cenariosOrdenados = new ArrayList<>();
-			
-			this.cenarios.addAll(cenariosOrdenados);
+			cenariosOrdenados.addAll(this.cenarios);
 			cenariosOrdenados.sort(this.ordenador);
 			
 			return cenariosOrdenados.get(cenario - 1).toString();

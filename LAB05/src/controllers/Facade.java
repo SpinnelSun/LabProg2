@@ -16,7 +16,7 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] {"controllers.Facade", "acc_tst/us1_test.txt", "acc_tst/us2_test.txt",
 				             "acc_tst/us3_test.txt", "acc_tst/us4_test.txt", "acc_tst/us5_test.txt",
-				             "acc_tst/us6_test.txt"};
+				             "acc_tst/us6_test.txt", "acc_tst/us7_test.txt"};
 		
 		EasyAccept.main(args);
 	}
