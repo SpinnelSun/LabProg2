@@ -1,4 +1,9 @@
-package lab2;
+package main;
+
+import models.ContaCantina;
+import models.ContaLaboratorio;
+import models.Disciplina;
+import models.Saude;
 
 public class Coisa {
 	
@@ -32,16 +37,16 @@ public class Coisa {
             System.out.println(mulherDoBolo.toString());
             
             Saude saude = new Saude();
-            System.out.println(saude.geral());
+            System.out.println(saude.getStatusGeral());
             saude.defineSaudeMental("boa");
             saude.defineSaudeFisica("boa");
-            System.out.println(saude.geral());
+            System.out.println(saude.getStatusGeral());
             saude.defineSaudeMental("fraca");
             saude.defineSaudeFisica("fraca");
-            System.out.println(saude.geral());
+            System.out.println(saude.getStatusGeral());
             saude.defineSaudeMental("boa");
             saude.defineSaudeFisica("fraca");
-            System.out.println(saude.geral());
+            System.out.println(saude.getStatusGeral());
     }
    
 }

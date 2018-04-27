@@ -1,4 +1,4 @@
-package lab2;
+package models;
 
 /**
  * Representação da conta de um estudante de Ciência da Computação na UFCG em um laboratório do
@@ -9,6 +9,7 @@ package lab2;
  *
  * Laboratório de Programação 2 - Lab 02
  * @author Matheus Alves dos Santos - 117110503
+ * 
  */
 public class ContaLaboratorio {
 	
@@ -17,30 +18,30 @@ public class ContaLaboratorio {
 	private int cota;
 	
 	/**
-	 *  Constrói uma conta em laboratório a partir do nome do laboratório utilizado. Inicializa
-	 *  o espaço ocupado por essa conta como 0 e, por padrão dos laboratórios, inicia a cota da
-	 *  conta em 2000MB.
-	 *  
-	 *  @param nomeLaboratorio Nome do laboratório em que se está hospedando a conta.
-	 */
-	public ContaLaboratorio (String nomeLaboratorio) {
-		this.nomeLaboratorio = nomeLaboratorio;
-		this.espacoOcupado = 0;
-		this.cota = 2000;
-	}
-	
-	/**
 	 *  Constrói uma conta em laboratório a partir do nome do laboratório utilizado e de quanto
 	 *  espaço máximo (em MB) essa conta deverá ocupar. Inicializa o espaço ocupado pela conta
 	 *  em 0.
 	 *  
 	 *  @param nomeLaboratorio Nome do laboratório em que se está hospedando a conta.
 	 *  @param cota Quantidade máxima de espaço (em MB) que essa conta deverá ocupar.
+	 *  
 	 */
 	public ContaLaboratorio (String nomeLaboratorio, int cota) {
 		this.nomeLaboratorio = nomeLaboratorio;
 		this.espacoOcupado = 0;
 		this.cota = cota;
+	}
+	
+	/**
+	 *  Constrói uma conta em laboratório a partir do nome do laboratório utilizado. Inicializa
+	 *  o espaço ocupado por essa conta como 0 e, por padrão dos laboratórios, inicia a cota da
+	 *  conta em 2000MB.
+	 *  
+	 *  @param nomeLaboratorio Nome do laboratório em que se está hospedando a conta.
+	 *  
+	 */
+	public ContaLaboratorio (String nomeLaboratorio) {
+		this("nomeLaboratorio", 2000);
 	}
 	
 	/**
@@ -51,6 +52,7 @@ public class ContaLaboratorio {
 	 *  @param mbytes Quantidade de MB que passaram a ser ocupados.
 	 *  
 	 *  @returns null
+	 *  
 	 */
 	public void consomeEspaco(int mbytes) {
 		this.espacoOcupado += mbytes;
@@ -64,13 +66,10 @@ public class ContaLaboratorio {
 	 *  @param mbytes Quantidade de MB que deixaram de ser ocupados.
 	 *  
 	 *  @returns null
+	 *  
 	 */
 	public void liberaEspaco(int mbytes) {
-		if(this.espacoOcupado > mbytes) {
-			espacoOcupado -= mbytes;
-		} else {
-			espacoOcupado = 0;
-		}
+		this.espacoOcupado = Math.max(this.espacoOcupado - mbytes, 0);
 	}
 	
 	/**
@@ -79,6 +78,7 @@ public class ContaLaboratorio {
 	 *  true. caso contrário, retornará false. 
 	 *  
 	 *  @returns O boolean que indica se a cota foi estourada.
+	 *  
 	 */
 	public boolean atingiuCota() {
 		return (this.espacoOcupado >= this.cota);
@@ -89,6 +89,7 @@ public class ContaLaboratorio {
 	 *  "Nome do Laboratório (Espaço Ocupado)/(Cota da Conta)".
 	 *  
 	 *  @returns A representação em String de uma conta de laboratório.
+	 *  
 	 */
 	@Override
 	public String toString() {
