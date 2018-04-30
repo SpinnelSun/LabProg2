@@ -41,9 +41,21 @@ public class ContaLaboratorio {
 	 *  
 	 */
 	public ContaLaboratorio (String nomeLaboratorio) {
-		this("nomeLaboratorio", 2000);
+		this(nomeLaboratorio, 2000);
 	}
 	
+	public String getNomeLaboratorio() {
+		return this.nomeLaboratorio;
+	}
+
+	public int getEspacoOcupado() {
+		return this.espacoOcupado;
+	}
+
+	public int getCota() {
+		return this.cota;
+	}
+
 	/**
 	 *  Atualiza a quantidade de espaço ocupado pela conta de laboratório, acrescendo-a a partir
 	 *  da quantidade de MBs informada como parâmetro. É importante ressaltar que não limita-se
@@ -93,7 +105,7 @@ public class ContaLaboratorio {
 	 */
 	@Override
 	public String toString() {
-		return this.nomeLaboratorio + " " + this.espacoOcupado + "/" + this.cota;
+		return this.getNomeLaboratorio() + " " + this.getEspacoOcupado() + "/" + this.getCota();
 	}	
 	
 }

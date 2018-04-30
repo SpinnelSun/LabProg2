@@ -27,6 +27,10 @@ public class Saude {
 		this.emoji = "";
 	}
 	
+	public String getEmoji() {
+		return emoji;
+	}
+
 	/**
 	 *  Atualiza o estado da saúde mental do estudante, o que poderá ou não provocar mudança no
 	 *  estado de saúde geral do mesmo.
@@ -101,7 +105,7 @@ public class Saude {
 	 *  
 	 */
 	public String getStatusGeral() {
-		return this.avaliarSaudeGeral() + " " + this.emoji;
+		return this.avaliarSaudeGeral() + " " + this.getEmoji();
 	}
 
 }

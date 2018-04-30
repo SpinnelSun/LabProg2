@@ -35,6 +35,18 @@ public class ContaCantina {
 		this.controleDetalhes = 0;
 	}
 	
+	public String getNomeCantina() {
+		return this.nomeCantina;
+	}
+
+	public int getItensConsumidos() {
+		return this.itensConsumidos;
+	}
+
+	public int getDebitoConta() {
+		return this.debitoConta;
+	}
+
 	/**
 	 *  Atualiza o débito no estabelecimento a partir de informações de um lanche consumido ali.
 	 *  A quantidade de itens consumidos no estabelecimento e o débito total serão acrescidos de
@@ -110,7 +122,7 @@ public class ContaCantina {
 	 */
 	@Override
 	public String toString() {
-		return this.nomeCantina + " " + this.itensConsumidos + " " + this.debitoConta;
+		return this.getNomeCantina() + " " + this.getItensConsumidos() + " " + this.getDebitoConta();
 	}
 	
 }

@@ -71,6 +71,15 @@ public class Disciplina {
 		this.pesoNotas = pesoNotas;
 	}
 	
+	
+	public String getNomeDisciplina() {
+		return this.nomeDisciplina;
+	}
+
+	public int getHorasEstudo() {
+		return this.horasEstudo;
+	}
+
 	/**
 	 *  Atualiza a quantidade de horas de estudo que foram dedicadas à disciplina. O número total
 	 *  de horas de estudo é acrescido conforme o número de horas informado como parâmetro.
@@ -140,7 +149,7 @@ public class Disciplina {
 	 */
 	@Override
 	public String toString() {
-		return nomeDisciplina + " " + horasEstudo + " " + this.calculaMedia() + " "
+		return this.getNomeDisciplina() + " " + this.getHorasEstudo() + " " + this.calculaMedia() + " "
 	           + Arrays.toString(this.notas);
 	}
 	
