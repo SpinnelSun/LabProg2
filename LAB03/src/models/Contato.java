@@ -1,4 +1,6 @@
-package lab3;
+package models;
+
+import utility.Validador;
 
 /**
  * Representação de um contato a ser armazenado em uma agenda. Como atributos, cada Contato possui
@@ -25,19 +27,27 @@ public class Contato {
 	 * 
 	 */
 	public Contato(String nome, String sobrenome, String telefone) {
-		if (nome == null) {
-			throw new NullPointerException("Nome Nulo!");
-		} else if (sobrenome == null) {
-			throw new NullPointerException("Sobrenome Nulo!");
-		} else if (telefone == null) {
-			throw new NullPointerException("Telefone Nulo!");
-		}
+		Validador.validarStringNaoVaziaNaoNula("Nome nulo ou vazio!", nome);
+		Validador.validarStringNaoVaziaNaoNula("Sobrenome nulo ou vazio!", sobrenome);
+		Validador.validarStringNaoVaziaNaoNula("Telefone nulo ou vazio!", telefone);
 		
 		this.nome = nome.trim();
 		this.sobrenome = sobrenome.trim();
 		this.telefone = telefone.trim();
 	}
 	
+	public String getNome() {
+		return this.nome;
+	}
+
+	public String getSobrenome() {
+		return this.sobrenome;
+	}
+
+	public String getTelefone() {
+		return this.telefone;
+	}
+
 	/**
 	 * Retorna o nome completo do Contato. O nome completo é a concatenação do nome e sobrenome do
 	 * Contato, separados por um espaço em branco.
@@ -45,8 +55,8 @@ public class Contato {
 	 * @returns A representação, em String, do nome completo de um Contato.
 	 * 
 	 */
-	public String nomeCompleto() {
-		return this.nome + " " + this.sobrenome;
+	public String getNomeCompleto() {
+		return this.getNome() + " " + this.getSobrenome();
 	}
 	
 	/**
@@ -59,44 +69,40 @@ public class Contato {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((sobrenome == null) ? 0 : sobrenome.hashCode());
+		
 		return result;
 	}
 	
 	/**
-	 * Checa se dois Contatos são ou não iguais. Para que haja igualdade, dois contatos deverão ter
-	 * o mesmo nome e o mesmo sobrenome.
+	 * Avalia a igualdade entre dois Objetos. Para que haja igualdade, ambos deverão ter o mesmo
+	 * nome e o mesmo sobrenome.
 	 * 
 	 * @param obj O objeto a ser comparado com o Contato executando o equals.
+	 * 
 	 * @returns O boolean que equivalente ao teste de igualdade entre dois Contatos.
 	 * 
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
+		if (this == obj) { return true; }
 		
-		if (obj == null)
-			return false;
+		if (obj == null) { return false; }
 		
-		if (getClass() != obj.getClass())
-			return false;
+		if (getClass() != obj.getClass()) { return false; }
 		
 		Contato other = (Contato) obj;
+		
 		if (nome == null) {
-			if (other.nome != null)
-				return false;
-			
-		} else if (!nome.equals(other.nome))
-			return false;
+			if (other.nome != null) { return false; }		
+		} else if (!nome.equals(other.nome)) { return false; }
 		
 		if (sobrenome == null) {
-			if (other.sobrenome != null)
-				return false;
+			if (other.sobrenome != null) { return false; }
 			
-		} else if (!sobrenome.equals(other.sobrenome))
-			return false;
+		} else if (!sobrenome.equals(other.sobrenome)) { return false; }
 		
 		return true;
 	}
@@ -110,7 +116,7 @@ public class Contato {
 	 */
 	@Override
 	public String toString() {
-		return this.nome + " " + this.sobrenome + " - " + this.telefone;
+		return this.getNome() + " " + this.getSobrenome() + " - " + this.getTelefone();
 	}
 	
 }

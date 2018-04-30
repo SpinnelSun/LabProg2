@@ -1,7 +1,8 @@
-package lab3;
+package models;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+
+import utility.Validador;
 
 /**
  * Representação de uma agenda de contatos. Como atributos, cada Agenda possui um Array que contém
@@ -29,46 +30,39 @@ public class Agenda {
 	 * um valor de 1 a 100 (posições possíveis numa agenda).
 	 * 
 	 * @param posicao A posição cuja validade deve ser testada pelo método.
+	 * 
 	 * @returns O boolean que representa a validez da posição passada como parâmetro.
 	 * 
 	 */
-	public boolean validarPosicao (int posicao) {
-		return ((posicao >= 1) && (posicao <= 100));
+	public boolean verificarPosicaoValida (int posicao) {
+		return Validador.validarIntUmACem(posicao);
 	}
 	
 	/**
-	 * Avalia se uma posição (passada como parâmetro) do Array de Contatos contém ou não um Contato
+	 * Verifica se uma posição (passada como parâmetro) do Array de Contatos contém ou não um Contato
 	 * cadastrado.
 	 * 
 	 * @param posicao A posição dos cadastros cujo conteúdo deve ser avaliado pelo método.
+	 * 
 	 * @returns O boolean que representa a validez do conteúdo avaliado.
 	 * 
 	 */
-	public boolean validarContato (int posicao) {
+	public boolean verificarContatoCadastrado (int posicao) {
 		return (this.cadastros[posicao - 1] != null);
 	}
 	
 	/**
 	 * Cria e armazena um novo Contato na Agenda, a partir das informações passadas por parâmetro.
-	 * Ocorre lançamento das exceções adequadas se algum dos parâmetros for uma String apenas com
-	 * espaços em branco.
 	 * 
 	 * @param posicao A posição da Agenda em que o novo Contato deve ser armazenado.
 	 * @param nome O nome referente ao novo Contato que será armazenado.
 	 * @param sobrenome O sobrenome referente ao novo Contato que será armazenado.
 	 * @param telefone O telefone referente ao novo Contato que será armazenado.
+	 * 
 	 * @returns null.
 	 * 
 	 */
-	public void novoCadastro(int posicao, String nome, String sobrenome, String telefone) {
-		if (nome.trim().equals("")) {
-			throw new IllegalArgumentException("Nome Vazio!");
-		} else if (sobrenome.trim().equals("")) {
-			throw new IllegalArgumentException("Sobrenome Vazio!");
-		} else if (telefone.trim().equals("")) {
-			throw new IllegalArgumentException("Telefone Vazio!");
-		}
-		
+	public void cadastrarContato(int posicao, String nome, String sobrenome, String telefone) {
 		this.cadastros[posicao - 1] = new Contato(nome, sobrenome, telefone);
 	}
 	
@@ -76,29 +70,32 @@ public class Agenda {
 	 * Retorna a representação do Contato armazenado na Agenda (na posição passada como parâmetro).
 	 * 
 	 * @param posicao A posição da Agenda em que se deseja buscar um Contato armazenado.
+	 * 
 	 * @returns Uma String que represente o Contato armazenado nessa posição.
 	 * 
 	 */
-	public String exibicaoContato(int posicao) {
+	public String exibirContato(int posicao) {
 		return this.cadastros[posicao - 1].toString();
 	}
 	
 	/**
-	 * Retorna um ArrayList de Strings. Essas Strings são as representações resumidas dos Contatos
-	 * que estão armazenados na Agenda e seguem o padrão POSIÇÃO - NOME SOBRENOME.
+	 * Retorna a listagem dos Contatos armazenados na Agenda. Cada Contato é representado resumida-
+	 * nente no padrão POSIÇÃO - NOME SOBRENOME.
 	 * 
-	 * @returns Um ArrayList de Strings contendo o resumo de todos os cadastros de Contatos da Agenda.
+	 * @returns Uma String de listagem dos Contatos cadastrados na Agenda.
 	 * 
 	 */
-	public ArrayList<String> listagemContatos() {
-		ArrayList<String> listaContatos = new ArrayList<>();
+	public String listarContatos() {
+		String listagemContatos = "";
+		
 		for (int i = 1; i < 101; i++) {
-			if (validarContato(i)) {
-				listaContatos.add(i + " - " + this.cadastros[i - 1].nomeCompleto());
+			if (verificarContatoCadastrado(i)) {
+				listagemContatos += (i + " - " + this.cadastros[i - 1].getNomeCompleto() +
+									System.lineSeparator());
 			}
 		}
 		
-		return listaContatos;
+		return listagemContatos;
 	}
 	
 	/**
@@ -111,7 +108,9 @@ public class Agenda {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		
 		result = prime * result + Arrays.hashCode(cadastros);
+		
 		return result;
 	}
 
@@ -127,18 +126,15 @@ public class Agenda {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
+		if (this == obj) { return true; }
 		
-		if (obj == null)
-			return false;
+		if (obj == null) { return false; }
 		
-		if (getClass() != obj.getClass())
-			return false;
+		if (getClass() != obj.getClass()) { return false; }
 		
 		Agenda other = (Agenda) obj;
-		if (!this.listagemContatos().equals(other.listagemContatos()))
-			return false;
+		
+		if (!this.listarContatos().equals(other.listarContatos())) { return false; }
 		
 		return true;
 	}
@@ -152,7 +148,7 @@ public class Agenda {
 	 */
 	@Override
 	public String toString() {
-		return "CONTATOS CADASTRADOS: " + this.listagemContatos();
+		return "CONTATOS CADASTRADOS: " + this.listarContatos();
 	}
 
 }

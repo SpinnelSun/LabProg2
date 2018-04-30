@@ -1,7 +1,8 @@
-package lab3;
+package main;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import models.Agenda;
 
 /**
  * Menu utilizado no gerenciamento da Agenda de Contatos.
@@ -61,7 +62,7 @@ public class Menu {
 		int posicao = scan.nextInt();
 		scan.nextLine();
 		
-		if (agenda.validarPosicao(posicao)) {
+		if (agenda.verificarPosicaoValida(posicao)) {
 	
 			System.out.print("Nome: ");
 			String nome = scan.nextLine();
@@ -72,28 +73,25 @@ public class Menu {
 			System.out.print("Telefone: ");
 			String telefone = scan.nextLine();
 		
-			agenda.novoCadastro(posicao, nome, sobrenome, telefone);
+			agenda.cadastrarContato(posicao, nome, sobrenome, telefone);
 		} else {
-			System.out.println("\nPOSIÇÃO INVÁLIDA!");
+			System.out.println(System.lineSeparator() + "POSIÇÃO INVÁLIDA!");
 		}
 	}
 	
 	public static void listarContatos(Agenda agenda) {
-		ArrayList<String> listaContatos = agenda.listagemContatos();
-		
-		for (String contato : listaContatos) {
-			System.out.println(contato);
-		}
+		System.out.println(agenda.listarContatos());
 	}
 
 	public static void exibirContato(Agenda agenda, Scanner scan) {
 		System.out.print("Contato > ");
 		int posicao = scan.nextInt();
+		
 		System.out.println("");
 		scan.nextLine();
 		
-		if (agenda.validarPosicao(posicao) && agenda.validarContato(posicao)) {
-				System.out.println(agenda.exibicaoContato(posicao));
+		if (agenda.verificarPosicaoValida(posicao) && agenda.verificarContatoCadastrado(posicao)) {
+				System.out.println(agenda.exibirContato(posicao));
 		} else {
 			System.out.println("POSIÇÃO INVÁLIDA!");
 		}

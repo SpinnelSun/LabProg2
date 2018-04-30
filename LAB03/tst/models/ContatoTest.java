@@ -1,15 +1,11 @@
-package lab3;
+package models;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-/**
- * Testes da classe Contato.
- * 
- * @author matheusas
- * 
- */
+import models.Contato;
+
 public class ContatoTest {
 	
 	private Contato contatoBasico1;
@@ -36,9 +32,9 @@ public class ContatoTest {
 
 
 	@Test
-	public void testNomeCompleto() {
+	public void testGetNomeCompleto() {
 		String msg = "Obtenção o nome completo de um Contato criado.";
-		assertEquals(msg, "Bloom of Domino", contatoBasico1.nomeCompleto());
+		assertEquals(msg, "Bloom of Domino", contatoBasico1.getNomeCompleto());
 	}
 
 	@Test
@@ -81,6 +77,21 @@ public class ContatoTest {
 	@Test(expected=NullPointerException.class)
 	public void testTelefoneNulo() {
 		Contato invalido = new Contato("Earth", " Kingdom", null); 
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testNomeVazio() {
+		Contato invalido = new Contato("   ", "Alphea", "00000-0000"); 
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSobrenomeVazio() {
+		Contato invalido = new Contato("Magix", "   ", "11111-1111"); 
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testTelefoneVazio() {
+		Contato invalido = new Contato("Earth", " Kingdom", "   "); 
 	}
 
 }
