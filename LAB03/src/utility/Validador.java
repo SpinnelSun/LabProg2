@@ -17,8 +17,6 @@ public class Validador {
 	 * @param msg A mensagem a ser associada a exceção lançada.
 	 * @param str A string a ser validada como não-vazia.
 	 * 
-	 * @returns null.
-	 * 
 	 */
 	public static void validarStringNaoVazia(String msg, String str) {
 		if (str.trim().equals("")) {
@@ -31,8 +29,6 @@ public class Validador {
 	 * 
 	 * @param msg A mensagem a ser associada a exceção lançada.
 	 * @param str A string a ser validada como não-nula.
-	 * 
-	 * @returns null.
 	 * 
 	 */
 	public static void validarStringNaoNula(String msg, String str) {
@@ -47,8 +43,6 @@ public class Validador {
 	 * @param msg A mensagem a ser associada a exceção lançada.
 	 * @param str A string a ser validada como não-vazia e não-nula.
 	 * 
-	 * @returns null.
-	 * 
 	 */
 	public static void validarStringNaoVaziaNaoNula(String msg, String str) {
 		Validador.validarStringNaoVazia(msg, str);
@@ -59,8 +53,6 @@ public class Validador {
 	 * Avalia se um número inteiro esta no intervalo [1, 100].
 	 * 
 	 * @param value O inteiro a ser validado no intervalo [1, 100].
-	 * 
-	 * @returns null.
 	 * 
 	 */
 	public static boolean validarIntUmACem(int valor) {

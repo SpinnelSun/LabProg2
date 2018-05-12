@@ -52,7 +52,7 @@ public class Contato {
 	 * Retorna o nome completo do Contato. O nome completo é a concatenação do nome e sobrenome do
 	 * Contato, separados por um espaço em branco.
 	 * 
-	 * @returns A representação, em String, do nome completo de um Contato.
+	 * @return A representação, em String, do nome completo de um Contato.
 	 * 
 	 */
 	public String getNomeCompleto() {
@@ -62,7 +62,7 @@ public class Contato {
 	/**
 	 * Gera o HashCode do Contato a partir de seu nome e de seu sobrenome.
 	 * 
-	 * @returns O Hashcode do Contato.
+	 * @return O Hashcode do Contato.
 	 * 
 	 */
 	@Override
@@ -82,7 +82,7 @@ public class Contato {
 	 * 
 	 * @param obj O objeto a ser comparado com o Contato executando o equals.
 	 * 
-	 * @returns O boolean que equivalente ao teste de igualdade entre dois Contatos.
+	 * @return O boolean que equivalente ao teste de igualdade entre dois Contatos.
 	 * 
 	 */
 	@Override
@@ -111,7 +111,7 @@ public class Contato {
 	 * Retorna a String que representa o Contato. A representação segue o formato "NOME SOBRENOME - 
 	 * TELEFONE".
 	 * 
-	 * @returns A representação, em String, de um Contato.
+	 * @return A representação, em String, de um Contato.
 	 * 
 	 */
 	@Override
