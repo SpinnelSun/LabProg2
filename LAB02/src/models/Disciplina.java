@@ -86,8 +86,6 @@ public class Disciplina {
 	 *  
 	 *  @param horas Quantidade de horas de estudo da disciplina a ser adicionada.
 	 *  
-	 *  @returns null
-	 *  
 	 */
 	public void cadastraHoras(int horas) {
 		this.horasEstudo += horas;
@@ -100,8 +98,6 @@ public class Disciplina {
 	 *  
 	 *  @param nota Posição sequencial da nota obtida na ordem das notas avaliativas.
 	 *  @param valorNota Pontuação obtida pelo estudante.
-	 *  
-	 *  @returns null
 	 *  
 	 */
 	public void cadastraNota(int nota, double valorNota) {
@@ -116,7 +112,7 @@ public class Disciplina {
 	 *  Calcula a média final obtida pelo estudante na disciplina. O cálculo realizado pondera os
 	 *  pesos das notas e as notas em si para retornar a média final do estudante.
 	 *  
-	 *  @returns o double que representa a média final do estudante nessa disciplina.
+	 *  @return o double que representa a média final do estudante nessa disciplina.
 	 *  
 	 */
 	private double calculaMedia() {
@@ -133,7 +129,7 @@ public class Disciplina {
 	 *  Determina se o estudante foi (ou não) aprovado por média na disciplina. Para conseguir a
 	 *  aprovação, o estudante deve possuir uma média final igual ou superior a 7.
 	 *  
-	 *  @returns o boolean que indica se o estudante foi aprovado.
+	 *  @return o boolean que indica se o estudante foi aprovado.
 	 *  
 	 */
 	public boolean aprovado() {
@@ -144,7 +140,7 @@ public class Disciplina {
 	 *  Retorna uma String que representa a disciplina em curso. A representação segue o padrão
 	 *  "(Nome da Disciplina) (Horas de Estudo Média Final) [Notas Obtidas]".
 	 *  
-	 *  @returns A representação em String da disciplina em curso.
+	 *  @return A representação em String da disciplina em curso.
 	 *  
 	 */
 	@Override

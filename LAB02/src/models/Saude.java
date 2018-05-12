@@ -37,8 +37,6 @@ public class Saude {
 	 *  
 	 *  @param valor O estado da saúde mental do estudante.
 	 * 
-	 * @returns null
-	 * 
 	 */
 	public void defineSaudeMental(String valor) {
 		this.saudeMental = valor.toLowerCase();
@@ -49,8 +47,6 @@ public class Saude {
 	 *  estado de saúde geral do mesmo.
 	 *  
 	 *  @param valor O estado da saúde física do estudante.
-	 * 
-	 *  @returns null
 	 *  
 	 */
 	public void defineSaudeFisica(String valor) {
@@ -63,8 +59,6 @@ public class Saude {
 	 *  
 	 *  @param valor O emoji que representa a última sensação do estudante.
 	 *  
-	 *  @returns null
-	 *  
 	 */
 	public void defineEmoji(String valor) {
 		this.emoji = valor;
@@ -73,8 +67,6 @@ public class Saude {
 	/**
 	 *  Restaura o emoji de última sensação do estudante ao seu valor default, ou seja, torna-o 
 	 *  uma String vazia.
-	 *  
-	 *  @returns null
 	 *  
 	 */
 	private void restaurarEmoji() {
@@ -89,8 +81,6 @@ public class Saude {
 	 *  geral fraca, saúde física e saúde mental devem estar fracas. Nos demais casos, tem-se que
 	 *  a saúde geral está ok.  
 	 *  
-	 *  @returns null
-	 *  
 	 */
 	private String avaliarSaudeGeral() {
 		this.restaurarEmoji();
@@ -101,7 +91,7 @@ public class Saude {
 	 *  Retorna uma String que representa o estado de saúde do estudante. A representação utiliza
 	 *  o padrão "(Estado de Saúde Geral) (Emoji de Sensação)".
 	 *  
-	 *  @returns A representação em String de um estado de saúde.
+	 *  @return A representação em String de um estado de saúde.
 	 *  
 	 */
 	public String getStatusGeral() {

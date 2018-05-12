@@ -58,8 +58,6 @@ public class ContaCantina {
 	 *  @param valorCentavos Custo, em centavos, do novo lanche.
 	 *  @param detalhes Descrição do que foi consumido.
 	 *  
-	 *  @returns null
-	 *  
 	 */
 	public void cadastraLanche(int qtdItens, int valorCentavos, String detalhes) {
 		this.itensConsumidos += qtdItens;
@@ -78,9 +76,6 @@ public class ContaCantina {
 	 *  acordo com o que foi consumido nesse novo lanche.
 	 *  
 	 *  @param qtdItens Quantidade de itens consumidos no novo lanche.
-	 *  @param valorCentavos Custo, em centavos, do novo lanche.
-	 *  
-	 *  @returns null
 	 *  
 	 */
 	public void cadastraLanche(int qtdItens, int valorCentavos) {
@@ -94,8 +89,6 @@ public class ContaCantina {
 	 *  
 	 *  @param valorCentavos Valor, em centavos, que foi pago.
 	 *  
-	 *  @returns null
-	 *  
 	 */
 	public void pagaConta(int valorCentavos) {
 		this.debitoConta = Math.max(this.debitoConta -= valorCentavos, 0);
@@ -105,7 +98,7 @@ public class ContaCantina {
 	 *  Retorna uma String que representa as cinco últimas descrições de lanches armazenadas. O
 	 *  padrão utilizado insere um divisor de formato " / " entre as descrições.
 	 *  
-	 *  @returns A representação em String do que foram os últimos cinco lanches.
+	 *  @return A representação em String do que foram os últimos cinco lanches.
 	 *  
 	 */
 	public String listarDetalhes() {
@@ -117,7 +110,7 @@ public class ContaCantina {
 	 *  Retorna uma String que representa o débito no estabelecimento. A representação segue o
 	 *  formato "Nome do Estabelecimento - Total de Itens Consumidos - Débito Atual".
 	 *  
-	 *  @returns A representação em String de um débito em estabelecimento.
+	 *  @return A representação em String de um débito em estabelecimento.
 	 *   
 	 */
 	@Override

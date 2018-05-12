@@ -63,8 +63,6 @@ public class ContaLaboratorio {
 	 *  
 	 *  @param mbytes Quantidade de MB que passaram a ser ocupados.
 	 *  
-	 *  @returns null
-	 *  
 	 */
 	public void consomeEspaco(int mbytes) {
 		this.espacoOcupado += mbytes;
@@ -77,8 +75,6 @@ public class ContaLaboratorio {
 	 *  
 	 *  @param mbytes Quantidade de MB que deixaram de ser ocupados.
 	 *  
-	 *  @returns null
-	 *  
 	 */
 	public void liberaEspaco(int mbytes) {
 		this.espacoOcupado = Math.max(this.espacoOcupado - mbytes, 0);
@@ -89,7 +85,7 @@ public class ContaLaboratorio {
 	 *  Caso o espaço ocupado seja igual (ou superior) à cota da conta, esse método irá retornar
 	 *  true. caso contrário, retornará false. 
 	 *  
-	 *  @returns O boolean que indica se a cota foi estourada.
+	 *  @return O boolean que indica se a cota foi estourada.
 	 *  
 	 */
 	public boolean atingiuCota() {
@@ -100,7 +96,7 @@ public class ContaLaboratorio {
 	 *  Retorna uma String que representa a conta de laboratório. A representação segue o padrão
 	 *  "Nome do Laboratório (Espaço Ocupado)/(Cota da Conta)".
 	 *  
-	 *  @returns A representação em String de uma conta de laboratório.
+	 *  @return A representação em String de uma conta de laboratório.
 	 *  
 	 */
 	@Override
