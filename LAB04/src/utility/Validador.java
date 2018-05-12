@@ -1,43 +1,52 @@
-package classroom;
+package utility;
 
 /**
- * Representação de um validador de informações, no qual estão armazenados os métodos para evitar a utilização de
- * informações nulas ou vazias. A existência dessa classe evita a repetição de código nos construtores de Aluno e
- * de Grupo, bem como no Menu.
+ * Representação de um validador de informações, no qual estão armazenados os métodos para evitar a
+ * utilização de informações inválidas. Essa classe visa evitar a repetição de código necessário em
+ * validações idênticas ou semelhantes.
  * 
- * Laboratório de Programação 2 - Lab 04
+ * Laboratório de Programação 2 - Lab 03
  * @author Matheus Alves dos Santos - 117110503
  *
  */
 public class Validador {
 	
 	/**
-	 * Avalia se um objeto não é nulo.
+	 * Avalia se uma String é não-vazia. Lançará uma excecao adequada caso não o seja.
 	 * 
-	 * @param msg A mensagem a ser associada à exceção lançada.
-	 * @param obj O objeto a ser validado como não-nulo.
-	 * 
-	 * @returns null.
+	 * @param msg A mensagem a ser associada a exceção lançada.
+	 * @param str A string a ser validada como não-vazia.
 	 * 
 	 */
-	public static void validarNotNull(String msg, Object obj) {
-		if (obj == null) {
+	public static void validarStringNaoVazia(String msg, String str) {
+		if (str.trim().equals("")) {
+			throw new IllegalArgumentException(msg); 
+		}
+	}
+	
+	/**
+	 * Avalia se uma String e não-nula. Lançará uma excecao adequada caso não o seja.
+	 * 
+	 * @param msg A mensagem a ser associada a exceção lançada.
+	 * @param str A string a ser validada como não-nula.
+	 * 
+	 */
+	public static void validarStringNaoNula(String msg, String str) {
+		if (str == null) {
 			throw new NullPointerException(msg); 
 		}
 	}
 	
 	/**
-	 * Avalia se uma String não contém apenas espaços em branco.
+	 * Avalia se uma String e não-vazia e não-nula. Lançará uma exceção adequada caso não o seja.
 	 * 
-	 * @param msg A mensagem a ser associada à exceção lançada.
-	 * @param str A String a ser validada como não-vazia.
-	 * 
-	 * @returns null.
+	 * @param msg A mensagem a ser associada a exceção lançada.
+	 * @param str A string a ser validada como não-vazia e não-nula.
 	 * 
 	 */
-	public static void validarNotEmpty(String msg, String str) {
-		if (str.trim().equals("")) {
-			throw new IllegalArgumentException(msg); 
-		}
+	public static void validarStringNaoVaziaNaoNula(String msg, String str) {
+		Validador.validarStringNaoVazia(msg, str);
+		Validador.validarStringNaoNula(msg, str);
 	}
+	
 }

@@ -1,11 +1,13 @@
 /**
  * 
  */
-package classroom;
+package models;
+
+import utility.Validador;
 
 /**
- * Representação de um aluno a ser manipulado pelo Controle. Como atributos, cada Aluno possui matrícula, nome e curso
- * (armazenados como Strings). 
+ * Representação de um aluno a ser manipulado pelo Controle. Como atributos, cada Aluno possui matrí-
+ * cula, nome e curso (armazenados como Strings). 
  * 
  * Laboratório de Programação 2 - Lab 04
  * @author Matheus Alves dos Santos - 117110503
@@ -18,8 +20,9 @@ public class Aluno {
 	private String curso;
 	
 	/**
-	 * Constrói um Aluno a partir de sua matrícula, de seu nome e de seu curso. Não é permitida a criação de Alunos com
-	 * parâmetros vazios ou nulos. As informações armazenadas não contém espaços em branco nas extremidades.
+	 * Constrói um Aluno a partir de sua matrícula, de seu nome e de seu curso. Não é permitida a
+	 * criação de Alunos com parâmetros vazios ou nulos. As informações armazenadas não contém es-
+	 * paços em branco nas extremidades.
 	 * 
 	 * @param matricula A matrícula do aluno.
 	 * @param nome O nome do aluno.
@@ -35,61 +38,36 @@ public class Aluno {
 	}
 	
 	/**
-	 * Valida os parâmetros do construtor através dos métodos de Validador, causando o lançamento de exceções sempre
-	 * que as exigências do construtor não forem atendidas.
+	 * Valida os parâmetros do construtor através dos métodos de Validador, causando o lançamento de
+	 * exceções sempre que as exigências do construtor não forem atendidas.
 	 * 
 	 * @param matricula A matrícula do aluno.
 	 * @param nome O nome do aluno.
 	 * @param curso O curso do aluno.
 	 * 
-	 * @returns null.
-	 * 
 	 */
 	private void validacoes(String matricula, String nome, String curso) {
-		Validador.validarNotNull("MATRÍCULA NULA!", matricula);
-		Validador.validarNotEmpty("MATRÍCULA VAZIA!", matricula);
-		
-		Validador.validarNotEmpty("NOME VAZIO!", nome);
-		Validador.validarNotNull("NOME NULO!", nome);
-		
-		Validador.validarNotEmpty("CURSO VAZIO!", curso);
-		Validador.validarNotNull("CURSO NULO!", curso);
+		Validador.validarStringNaoVaziaNaoNula("MATRÍCULA NÃO PODE SER VAZIA OU NULA!", matricula);
+		Validador.validarStringNaoVaziaNaoNula("NOME NÃO PODE SER VAZIO OU NULO!", nome);
+		Validador.validarStringNaoVaziaNaoNula("CURSO NÃO PODE SER VAZIO OU NULO!", curso);
 	}
 	
-	/**
-	 * Retorna a matrícula do Aluno.
-	 *  
-	 * @returns A matrícula do aluno.
-	 * 
-	 */
 	public String getMatricula() {
-		return matricula;
+		return this.matricula;
 	}
 	
-	/**
-	 * Retorna o nome do Aluno.
-	 *  
-	 * @returns O nome do aluno.
-	 * 
-	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	
-	/**
-	 * Retorna o curso do Aluno.
-	 *  
-	 * @returns O curso do aluno.
-	 * 
-	 */
 	public String getCurso() {
-		return curso;
+		return this.curso;
 	}
 
 	/**
 	 * Gera o HashCode de um Aluno a partir de seu atributo matricula.
 	 * 
-	 * @returns O Hashcode do Aluno.
+	 * @return O Hashcode do Aluno.
 	 * 
 	 */
 	@Override
@@ -102,39 +80,39 @@ public class Aluno {
 	}
 
 	/**
-	 * Avalia se o Aluno é ou não igual a outro Object. Para que haja igualdade, deverão possuir o atributo matricula
-	 * iguais.
+	 * Avalia se o Aluno é ou não igual a outro Object. Para que haja igualdade, deverão possuir o
+	 * atributo matricula iguais.
 	 * 
 	 * @param obj O objeto a ser comparado com o Aluno executando o equals.
-	 * @returns O boolean que equivalente ao resultado do teste de igualdade.
+	 * @return O boolean que equivalente ao resultado do teste de igualdade.
 	 * 
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
+		if (this == obj) { return true; }
 		
-		if (obj == null)
-			return false;
+		if (obj == null) { return false; }
 		
-		if (getClass() != obj.getClass())
-			return false;
+		if (getClass() != obj.getClass()) { return false; }
 		
 		Aluno other = (Aluno) obj;
 		
 		if (matricula == null) {
-			if (other.matricula != null)
+			if (other.matricula != null) {
 				return false;
-		} else if (!matricula.equals(other.matricula))
+			}
+		} else if (!matricula.equals(other.matricula)) {
 			return false;
+		}
 		
 		return true;
 	}
 	
 	/**
-	 * Retorna a String que representa o Aluno. A representação segue o formato "MATRICULA - NOME - CURSO".
+	 * Retorna a String que representa o Aluno. A representação segue o formato "MATRICULA - NOME -
+	 * CURSO".
 	 * 
-	 * @returns A representação, em String, de um Aluno.
+	 * @return A representação, em String, de um Aluno.
 	 * 
 	 */
 	@Override

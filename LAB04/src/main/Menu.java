@@ -3,8 +3,8 @@ package main;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import classroom.Controle;
-import classroom.Validador;
+import controllers.Controle;
+import utility.Validador;
 
 /**
  * Menu utilizado no gerenciamento do Controle de Alunos.
@@ -87,20 +87,16 @@ public class Menu {
 		System.out.print("Curso: ");
 		String curso = scan.nextLine();
 		
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", matricula);
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", nome);
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", curso);
-		
-		Validador.validarNotNull("Você forneceu uma informação nula!", matricula);
-		Validador.validarNotNull("Você forneceu uma informação nula!", nome);
-		Validador.validarNotNull("Você forneceu uma informação nula!", curso);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", matricula);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", nome);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", curso);
 		
 		try {
-			controle.cadastroAluno(matricula, nome, curso);
+			controle.cadastrarAluno(matricula, nome, curso);
 			System.out.println("CADASTRO REALIZADO!");
 		}
 		
-		catch (UnsupportedOperationException | IllegalArgumentException | NullPointerException exception) {
+		catch (RuntimeException exception) {
 			System.out.println(exception.getMessage());
 		}
 	}
@@ -111,15 +107,14 @@ public class Menu {
 		System.out.print("Matrícula: ");
 		String matricula = scan.nextLine();
 		
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", matricula);
-		Validador.validarNotNull("Você forneceu uma informação nula!", matricula);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", matricula);
 		
 		try {
 			System.out.print(System.lineSeparator());
-			System.out.println("Aluno: " + controle.consultaAluno(matricula));
+			System.out.println("Aluno: " + controle.consultarAluno(matricula));
 		}
 		
-		catch (NoSuchElementException | IllegalArgumentException | NullPointerException exception) {
+		catch (RuntimeException exception) {
 			System.out.println(exception.getMessage());
 		}		
 		
@@ -131,15 +126,14 @@ public class Menu {
 		System.out.print("Grupo: ");
 		String grupo = scan.nextLine();
 		
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", grupo);
-		Validador.validarNotNull("Você forneceu uma informação nula!", grupo);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", grupo);
 		
 		try {
-			controle.cadastroGrupo(grupo);
+			controle.cadastrarGrupo(grupo);
 			System.out.println("CADASTRO REALIZADO!");
 		}
 		
-		catch (UnsupportedOperationException | IllegalArgumentException | NullPointerException exception) {
+		catch (RuntimeException exception) {
 			System.out.println(exception.getMessage());
 		}
 	}
@@ -174,14 +168,11 @@ public class Menu {
 		System.out.print("Grupo: ");
 		String grupo = scan.nextLine();
 		
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", matricula);
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", grupo);
-		
-		Validador.validarNotNull("Você forneceu uma informação nula!", matricula);
-		Validador.validarNotNull("Você forneceu uma informação nula!", grupo);
-		
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", matricula);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", grupo);
+				
 		try {
-			controle.alocaAluno(matricula, grupo);
+			controle.alocarAluno(matricula, grupo);
 			System.out.println("ALUNO ALOCADO!");
 		}
 		
@@ -198,14 +189,13 @@ public class Menu {
 		
 		System.out.print(System.lineSeparator());
 		
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", grupo);
-		Validador.validarNotNull("Você forneceu uma informação nula!", grupo);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", grupo);
 		
 		try {
-			System.out.println(controle.imprimeGrupo(grupo));
+			System.out.println(controle.imprimirGrupo(grupo));
 		}
 		
-		catch (NoSuchElementException | IllegalArgumentException | NullPointerException exception) {
+		catch (RuntimeException exception) {
 			System.out.println(exception.getMessage());
 		}
 	}
@@ -215,16 +205,15 @@ public class Menu {
 		System.out.print("Matrícula: ");
 		String matricula = scan.nextLine();
 		
-		Validador.validarNotEmpty("Você forneceu uma informação vazia!", matricula);
-		Validador.validarNotNull("Você forneceu uma informação nula!", matricula);
+		Validador.validarStringNaoVazia("Você forneceu uma informação vazia!", matricula);
 		
 		try {
 			System.out.print(System.lineSeparator());
-			controle.cadastroRespondente(matricula);
+			controle.cadastrarRespondente(matricula);
 			System.out.println("ALUNO REGISTRADO!");
 		}
 		
-		catch (NoSuchElementException | IllegalArgumentException | NullPointerException exception) {
+		catch (RuntimeException exception) {
 			System.out.println(exception.getMessage());
 		}
 	}

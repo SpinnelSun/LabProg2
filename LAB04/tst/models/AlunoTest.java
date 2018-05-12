@@ -1,11 +1,11 @@
-package classroom;
+package models;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import classroom.Aluno;
+import models.Aluno;
 
 public class AlunoTest {
 	

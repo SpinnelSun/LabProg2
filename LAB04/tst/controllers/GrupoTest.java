@@ -1,12 +1,12 @@
-package classroom;
+package controllers;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import classroom.Aluno;
-import classroom.Grupo;
+import models.Aluno;
+import models.Grupo;
 
 public class GrupoTest {
 	
@@ -27,13 +27,6 @@ public class GrupoTest {
 	public void testGrupo() {
 		String msg = "Verificação de construção adequada de um Grupo.";
 		assertEquals(msg, grupo1.getNome(), "Rainhas do Mid");
-	}
-
-	@Test
-	public void testAlocaAluno() {
-		grupo1.alocaAluno(queen1);
-		String msg = "Verificação da alocação adequada de um Aluno em um Grupo.";
-		assertTrue(msg, grupo1.getAlunos().contains(queen1));
 	}
 
 	@Test
@@ -62,13 +55,13 @@ public class GrupoTest {
 		String msg = "Verificação da representação textual de um Grupo sem Alunos.";
 		assertEquals(msg, grupo1.toString(), lista);
 		
-		grupo1.alocaAluno(queen1);
+		grupo1.alocarAluno(queen1);
 		lista += "* 1 - Diana - Assassin" + System.lineSeparator();
 		
 		String msg2 = "Verificação da representação textual de um Grupo com um Aluno.";
 		assertEquals(msg2, grupo1.toString(), lista);
 		
-		grupo1.alocaAluno(queen2);
+		grupo1.alocarAluno(queen2);
 		lista += "* 2 - Katarina - Assassin" + System.lineSeparator();
 		
 		String msg3 = "Verificação da representação textual de um Grupo com mais de um Aluno.";

@@ -1,23 +1,21 @@
-package classroom;
+package utility;
 
 import static org.junit.Assert.*;
-
-import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
 public class ValidadorTest {
 
-	@Test(expected = NullPointerException.class)
-	public void testValidarNotNull() {
-		String msg = "Verificação da exceção lançada devido à validação de informação nula.";
-		Validador.validarNotNull(msg, null);
+	@Test(expected = IllegalArgumentException.class)
+	public void testValidarStringNaoVaziaComVazia() {
+		String msg = "Avaliacao da excecao lancada ao tentar validar uma String vazia nesse metodo.";
+		Validador.validarStringNaoVazia("Excecao lancada!", "");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testValidarNotEmpty() {
-		String msg = "Verificação da exceção lançada devido à validação de informação vazia.";
-		Validador.validarNotEmpty(msg, "    ");
+	@Test(expected = NullPointerException.class)
+	public void testValidarStringNaoNulaComNull() {
+		String msg = "Avaliacao da excecao lancada ao tentar validar um null nesse metodo.";
+		Validador.validarStringNaoNula("Excecao lancada!", null);
 	}
 
 }
