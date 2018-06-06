@@ -31,7 +31,7 @@ public class ApostaAssegurada extends Aposta {
 	public ApostaAssegurada(String apostador, int valor, String previsao, int valorAssegurado) {
 		super(apostador, valor, previsao);
 		
-		Validador.validarLessEqualThan("VALOR ASSEGURADO MUITO ALTO!", valorAssegurado,
+		Validador.validarMenorIgualQue("VALOR ASSEGURADO MUITO ALTO!", valorAssegurado,
 										this.getValor());
 		
 		this.seguro = new SeguroPorValor(valorAssegurado);
@@ -52,7 +52,7 @@ public class ApostaAssegurada extends Aposta {
 	public ApostaAssegurada(String apostador, int valor, String previsao, double taxaAssegurada) {
 		super(apostador, valor, previsao);
 		
-		Validador.validarPercentage("TAXA ASSEGURADA INVÁLIDA!", taxaAssegurada);
+		Validador.validarPercentual("TAXA ASSEGURADA INVÁLIDA!", taxaAssegurada);
 		
 		this.seguro = new SeguroPorTaxa(taxaAssegurada);
 	}
@@ -83,7 +83,7 @@ public class ApostaAssegurada extends Aposta {
 	 * Retorna a perda que a Aposta poderá causar ao apostador caso a previsão não se concretize.
 	 * Para Apostas com Seguro, a perda gerada é amortecida pela quantia assegurada. 
 	 * 
-	 * @returns A perda (em centavos) que a Aposta é capaz de causar ao apostador.
+	 * @return A perda (em centavos) que a Aposta é capaz de causar ao apostador.
 	 * 
 	 */
 	@Override
@@ -95,7 +95,7 @@ public class ApostaAssegurada extends Aposta {
 	 * Retorna a String que representa a ApostaAssegurada. A representação segue o formato utili-
 	 * zado em Aposta, acrescentando-se, ao final da String, as informações do Seguro.
 	 * 
-	 * @returns A representação, em String, da ApostaAssegurada.
+	 * @return A representação, em String, da ApostaAssegurada.
 	 * 
 	 */
 	@Override

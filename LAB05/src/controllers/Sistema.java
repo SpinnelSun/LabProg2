@@ -6,6 +6,9 @@ import java.util.List;
 
 import models.Cenario;
 import models.CenarioBonificado;
+import sorting.CenarioPorApostas;
+import sorting.CenarioPorDescricao;
+import sorting.CenarioPorNumeracao;
 import utility.Validador;
 
 /**
@@ -40,9 +43,9 @@ public class Sistema {
 	 */
 	public Sistema(int caixa, double taxa) {
 		try {
-			Validador.validarNotNegativeInteger("Caixa nao pode ser inferior a 0", caixa);
-			Validador.validarNotNegativeDouble("Taxa nao pode ser inferior a 0", taxa);
-			Validador.validarPercentage("TAXA INVÁLIDA!", taxa);
+			Validador.validarInteiroNaoNegativo("Caixa nao pode ser inferior a 0", caixa);
+			Validador.validarDoubleNaoNegativo("Taxa nao pode ser inferior a 0", taxa);
+			Validador.validarPercentual("TAXA INVÁLIDA!", taxa);
 			
 			this.caixa = caixa;
 			this.taxa = taxa;
@@ -77,12 +80,10 @@ public class Sistema {
 	 * 
 	 * @param ordem A String que define a nova ordenação dos Cenarios.
 	 * 
-	 * @returns null.
-	 * 
 	 */
 	public void alterarOrdem(String ordem) {
 		try {
-			Validador.validarNotEmptyNotNull("Ordem nao pode ser vazia ou nula", ordem);
+			Validador.validarStringNaoVaziaNaoNula("Ordem nao pode ser vazia ou nula", ordem);
 			
 			switch (ordem.toLowerCase()) {
 
@@ -113,12 +114,10 @@ public class Sistema {
 	 * 
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * 
-	 * @returns null.
-	 * 
 	 */
 	private void validezCenario(int cenario) {
-		Validador.validarPositiveInteger("Cenario invalido", cenario);
-		Validador.validarLessEqualThan("Cenario nao cadastrado", cenario, this.cenarios.size());
+		Validador.validarInteiroPositivo("Cenario invalido", cenario);
+		Validador.validarMenorIgualQue("Cenario nao cadastrado", cenario, this.cenarios.size());
 	}
 	
 	/**
@@ -128,7 +127,7 @@ public class Sistema {
 	 * 
 	 * @param descricao A descrição do Cenario que será cadastrado.
 	 * 
-	 * @returns O ID do Cenario cadastrado.
+	 * @return O ID do Cenario cadastrado.
 	 * 
 	 */
 	public int cadastrarCenario(String descricao) {
@@ -154,12 +153,12 @@ public class Sistema {
 	 * @param descricao A descrição do CenarioBonificado que será cadastrado.
 	 * @param bonus O valor de bônus que o CenarioBonificado possuirá.
 	 * 
-	 * @returns O ID do CenarioBonificado cadastrado.
+	 * @return O ID do CenarioBonificado cadastrado.
 	 * 
 	 */
 	public int cadastrarCenario(String descricao, int bonus) {
 		try {
-			Validador.validarLessEqualThan("O CAIXA NÃO SUPORTA ESSE BÔNUS!", bonus, this.caixa);
+			Validador.validarMenorIgualQue("O CAIXA NÃO SUPORTA ESSE BÔNUS!", bonus, this.caixa);
 			
 			this.cenarios.add(new CenarioBonificado(this.cenarios.size() + 1, descricao, bonus));
 			this.caixa -= bonus;
@@ -183,7 +182,7 @@ public class Sistema {
 	 * 
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * 
-	 * @returns A String que representa o Cenario acessado.
+	 * @return A String que representa o Cenario acessado.
 	 * 
 	 */
 	public String exibirCenario(int cenario) {
@@ -204,7 +203,7 @@ public class Sistema {
 	 * 
 	 * @param cenario A posição do Cenario na listagem (ordenação atual).
 	 * 
-	 * @returns A String que representa o Cenario acessado.
+	 * @return A String que representa o Cenario acessado.
 	 * 
 	 */
 	public String exibirCenarioOrdenado(int cenario) {
@@ -228,7 +227,7 @@ public class Sistema {
 	 * contém o toString() de um Cenario registrado. A listagem segue a ordem de registro dos Ce-
 	 * narios.  
 	 * 
-	 * @returns A listagem de Cenarios registrados no Sistema.
+	 * @return A listagem de Cenarios registrados no Sistema.
 	 * 
 	 */
 	public String listarCenarios() {
@@ -251,7 +250,7 @@ public class Sistema {
 	 * @param valor O valor (em centavos) que foi apostado.
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * 
-	 * @returns O ID da Aposta cadastrada.
+	 * @return O ID da Aposta cadastrada.
 	 * 
 	 */
 	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
@@ -276,13 +275,13 @@ public class Sistema {
 	 * @param valorSeguro O valor assegurado nessa Aposta.
 	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
 	 * 
-	 * @returns O ID da ApostaAssegurada cadastrada.
+	 * @return O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
 	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao,
 			                    int valorSeguro, int custo) {
 		try {
-			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
+			Validador.validarInteiroPositivo("CUSTO INVÁLIDO!", custo);
 			this.validezCenario(cenario);
 			
 			this.caixa += custo;
@@ -307,7 +306,7 @@ public class Sistema {
 	 * @param taxaSeguro A taxa assegurada nessa Aposta.
 	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
 	 * 
-	 * @returns O ID da ApostaAssegurada cadastrada.
+	 * @return O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
 	public int cadastrarAposta(int cenario, String apostador, int valor, String previsao,
@@ -315,7 +314,7 @@ public class Sistema {
 		try {
 			this.validezCenario(cenario);
 
-			Validador.validarPositiveInteger("CUSTO INVÁLIDO!", custo);
+			Validador.validarInteiroPositivo("CUSTO INVÁLIDO!", custo);
 			this.caixa += custo;
 
 			return this.cenarios.get(cenario - 1).cadastrarAposta(apostador, valor, previsao, taxaSeguro);
@@ -336,7 +335,7 @@ public class Sistema {
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
 	 * 
-	 * @returns O ID da Aposta com novo Seguro.
+	 * @return O ID da Aposta com novo Seguro.
 	 * 
 	 */
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valorSeguro) {
@@ -360,7 +359,7 @@ public class Sistema {
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
 	 * 
-	 * @returns O ID da Aposta com novo Seguro.
+	 * @return O ID da Aposta com novo Seguro.
 	 * 
 	 */
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxaSeguro) {
@@ -383,7 +382,7 @@ public class Sistema {
 	 * 
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * 
-	 * @returns O valor total (em centavos) que foi apostado no Cenario acessado.
+	 * @return O valor total (em centavos) que foi apostado no Cenario acessado.
 	 * 
 	 */
 	public int valorTotalDeApostas(int cenario) {
@@ -404,7 +403,7 @@ public class Sistema {
 	 * 
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * 
-	 * @returns O número de Apostas registradas no Cenario acessado.
+	 * @return O número de Apostas registradas no Cenario acessado.
 	 * 
 	 */
 	public int totalDeApostas(int cenario) {
@@ -426,7 +425,7 @@ public class Sistema {
 	 * 
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * 
-	 * @returns A listagem de Apostas registradas no Cenario acessado.
+	 * @return A listagem de Apostas registradas no Cenario acessado.
 	 * 
 	 */
 	public String listarApostas(int cenario) {
@@ -449,8 +448,6 @@ public class Sistema {
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * @param ocorrencia O boolean relativo à ocorrência do Cenário.
 	 * 
-	 * @returns null.
-	 * 
 	 */
 	public void encerrarCenario(int cenario, boolean ocorrencia) {
 		try {
@@ -472,7 +469,7 @@ public class Sistema {
 	 * 
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * 
-	 * @returns O valor (em centavos) de lucro do caixa em decorrência do Cenario acessado.
+	 * @return O valor (em centavos) de lucro do caixa em decorrência do Cenario acessado.
 	 * 
 	 */
 	public int lucroCenario(int cenario) {
@@ -493,7 +490,7 @@ public class Sistema {
 	 * 
 	 * @param cenario O ID do Cenario que se deseja acessar.
 	 * 
-	 * @returns O valor (em centavos) que será destinado ao rateio entre os vencedores.
+	 * @return O valor (em centavos) que será destinado ao rateio entre os vencedores.
 	 * 
 	 */
 	public int rateioCenario(int cenario) {

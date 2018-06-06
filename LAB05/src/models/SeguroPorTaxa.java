@@ -35,7 +35,7 @@ public class SeguroPorTaxa implements Seguro {
 	 * 
 	 * @param valorAposta O valor (em centavos) que foi apostado.
 	 * 
-	 * @returns O valor (em centavos) que será assegurado.
+	 * @return O valor (em centavos) que será assegurado.
 	 * 
 	 */
 	@Override
@@ -47,7 +47,7 @@ public class SeguroPorTaxa implements Seguro {
 	 * Retorna a String que representa o SeguroPorTaxa. A representação segue o formato "ASSEGURADA 
 	 * (TIPO) - TAXA ASSEGURADA".
 	 * 
-	 * @returns A representação, em String, do SeguroPorTaxa.
+	 * @return A representação, em String, do SeguroPorTaxa.
 	 * 
 	 */
 	@Override

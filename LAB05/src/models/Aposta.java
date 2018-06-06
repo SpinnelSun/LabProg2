@@ -18,6 +18,9 @@ public class Aposta {
 	private boolean previsao;
 	private int valor;
 	
+	private final static String POSITIVA = "VAI ACONTECER";
+	private final static String NEGATIVA = "N VAI ACONTECER";
+	
 	/**
 	 * Constrói uma Aposta a partir do nome do apostador, do valor (em centavos) apostado e do texto
 	 * que explicita a previsão sobre a ocorrência do Cenario. Não é permitido criar apostas de valor
@@ -30,9 +33,9 @@ public class Aposta {
 	 * 
 	 */
 	public Aposta(String apostador, int valor, String previsao) {
-		Validador.validarNotEmptyNotNull("Apostador nao pode ser vazio ou nulo", apostador);
-		Validador.validarNotEmptyNotNull("Previsao nao pode ser vazia ou nula", previsao);
-		Validador.validarPositiveInteger("Valor nao pode ser menor ou igual a zero", valor);
+		Validador.validarStringNaoVaziaNaoNula("Apostador nao pode ser vazio ou nulo", apostador);
+		Validador.validarStringNaoVaziaNaoNula("Previsao nao pode ser vazia ou nula", previsao);
+		Validador.validarInteiroPositivo("Valor nao pode ser menor ou igual a zero", valor);
 		
 		this.apostador = apostador.trim();
 		this.previsao = avaliaPrevisao(previsao);
@@ -58,15 +61,15 @@ public class Aposta {
 	 * 
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * 
-	 * @returns O boolean adequado a ser atributo da Aposta.
+	 * @return O boolean adequado a ser atributo da Aposta.
 	 * 
 	 */
 	private boolean avaliaPrevisao(String previsao) {
-		if (previsao.equals("VAI ACONTECER")) {
+		if (previsao.equals(POSITIVA)) {
 			return true;
 		} 
 		
-		if (previsao.equals("N VAI ACONTECER")) {
+		if (previsao.equals(NEGATIVA)) {
 			return false;
 		}
 		
@@ -77,7 +80,7 @@ public class Aposta {
 	 * Retorna a representação textual referente ao boolean que foi armazenado no atributo previsao
 	 * da Aposta.
 	 * 
-	 * @returns A representação textual da previsão da Aposta.
+	 * @return A representação textual da previsão da Aposta.
 	 * 
 	 */
 	protected String descrevePrevisao() {
@@ -87,7 +90,7 @@ public class Aposta {
 	/**
 	 * Retorna a perda que a Aposta poderá causar ao apostador caso a previsão não se concretize.
 	 * 
-	 * @returns A perda (em centavos) que a Aposta é capaz de causar ao apostador.
+	 * @return A perda (em centavos) que a Aposta é capaz de causar ao apostador.
 	 * 
 	 */
 	public int perdaGerada() {
@@ -98,7 +101,7 @@ public class Aposta {
 	 * Retorna a String que representa a Aposta. Utiliza o padrão "NOME DO APOSTADOR - VALOR EM
 	 * REAIS DA APOSTA - PREVISÃO DA APOSTA".
 	 * 
-	 * @returns A representação, em String, da Aposta.
+	 * @return A representação, em String, da Aposta.
 	 * 
 	 */
 	@Override

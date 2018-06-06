@@ -30,7 +30,7 @@ public class CenarioBonificado extends Cenario {
 	public CenarioBonificado(int numeracao, String descricao, int bonus) {
 		super(numeracao, descricao);
 		
-		Validador.validarPositiveInteger("Bonus invalido", bonus);
+		Validador.validarInteiroPositivo("Bonus invalido", bonus);
 		this.bonus = bonus;
 	}
 	
@@ -44,7 +44,7 @@ public class CenarioBonificado extends Cenario {
 	 * 
 	 * @param taxa A taxa de lucro informada pelo Sistema que contém o Cenario.
 	 * 
-	 * @returns O valor (em centavos) que será destinado ao rateio entre os vencedores.
+	 * @return O valor (em centavos) que será destinado ao rateio entre os vencedores.
 	 * 
 	 */
 	@Override
@@ -56,7 +56,7 @@ public class CenarioBonificado extends Cenario {
 	 * Retorna a String que representa o CenarioBonificado. A representação segue o formato utili-
 	 * zado em Cenario, acrescentando-se, ao final da String, o valor (em reais) do bônus.
 	 * 
-	 * @returns A representação, em String, do CenarioBonificado.
+	 * @return A representação, em String, do CenarioBonificado.
 	 * 
 	 */
 	@Override

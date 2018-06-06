@@ -12,22 +12,41 @@ package utility;
 public class Validador {
 	
 	/**
-	 * Avalia se uma String é vazia ou nula.
+	 * Avalia se uma String é não-vazia. Lançará uma exceção adequada caso não o seja.
 	 * 
-	 * @param msg A mensagem a ser associada à exceção lançada.
-	 * @param str A string a ser validada como não-vazia e não-nula.
-	 * 
-	 * @returns null.
+	 * @param msg A mensagem a ser associada a exceção lançada.
+	 * @param str A string a ser validada como não-vazia.
 	 * 
 	 */
-	public static void validarNotEmptyNotNull(String msg, String str) {
-		if (str == null) {
-			throw new NullPointerException(msg); 
-		}
-		
+	public static void validarStringNaoVazia(String msg, String str) {
 		if (str.trim().equals("")) {
 			throw new IllegalArgumentException(msg); 
 		}
+	}
+	
+	/**
+	 * Avalia se uma String é não-nula. Lançará uma exceção adequada caso não o seja.
+	 * 
+	 * @param msg A mensagem a ser associada a exceção lançada.
+	 * @param str A string a ser validada como não-nula.
+	 * 
+	 */
+	public static void validarStringNaoNula(String msg, String str) {
+		if (str == null) {
+			throw new NullPointerException(msg); 
+		}
+	}
+	
+	/**
+	 * Avalia se uma String é não-vazia e não-nula. Lançará uma exceção adequada caso não o seja.
+	 * 
+	 * @param msg A mensagem a ser associada a exceção lançada.
+	 * @param str A string a ser validada como não-vazia e não-nula.
+	 * 
+	 */
+	public static void validarStringNaoVaziaNaoNula(String msg, String str) {
+		Validador.validarStringNaoVazia(msg, str);
+		Validador.validarStringNaoNula(msg, str);
 	}
 	
 	/**
@@ -36,10 +55,8 @@ public class Validador {
 	 * @param msg A mensagem a ser associada à exceção lançada.
 	 * @param value O inteiro a ser validado como positivo.
 	 * 
-	 * @returns null.
-	 * 
 	 */
-	public static void validarPositiveInteger(String msg, int value) {
+	public static void validarInteiroPositivo(String msg, int value) {
 		if (value < 1) {
 			throw new IllegalArgumentException(msg); 
 		}
@@ -51,10 +68,8 @@ public class Validador {
 	 * @param msg A mensagem a ser associada à exceção lançada.
 	 * @param value O inteiro a ser validado como não-negativo.
 	 * 
-	 * @returns null.
-	 * 
 	 */
-	public static void validarNotNegativeInteger(String msg, int value) {
+	public static void validarInteiroNaoNegativo(String msg, int value) {
 		if (value < 0) {
 			throw new IllegalArgumentException(msg); 
 		}
@@ -66,26 +81,22 @@ public class Validador {
 	 * @param msg A mensagem a ser associada à exceção lançada.
 	 * @param value O double a ser validado como não-negativo.
 	 * 
-	 * @returns null.
-	 * 
 	 */
-	public static void validarNotNegativeDouble(String msg, double value) {
+	public static void validarDoubleNaoNegativo(String msg, double value) {
 		if (value < 0) {
 			throw new IllegalArgumentException(msg); 
 		}
 	}
 	
 	/**
-	 * Avalia se um inteiro é menor ou igual a outro int.
+	 * Avalia se um inteiro é menor ou igual a outro inteiro.
 	 * 
 	 * @param msg A mensagem a ser associada à exceção lançada.
 	 * @param value1 O int que se espera ser menor.
 	 * @param value2 O int que se espera ser maior.
 	 * 
-	 * @returns null.
-	 * 
 	 */
-	public static void validarLessEqualThan(String msg, int value1, int value2) {
+	public static void validarMenorIgualQue(String msg, int value1, int value2) {
 		if (value1 > value2) {
 			throw new IllegalArgumentException(msg); 
 		}
@@ -97,10 +108,8 @@ public class Validador {
 	 * @param msg A mensagem a ser associada à exceção lançada.
 	 * @param value O double a ser validado como percentual válido.
 	 * 
-	 * @returns null.
-	 * 
 	 */
-	public static void validarPercentage(String msg, double value) {
+	public static void validarPercentual(String msg, double value) {
 		if ((value < 0) || (value > 1)) {
 			throw new IllegalArgumentException(msg); 
 		}

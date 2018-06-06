@@ -1,4 +1,4 @@
-package models;
+package enums;
 
 /**
  * Representação dos estados em que um Cenario pode se encontrar. Cada Estado é definido a partir
@@ -32,7 +32,7 @@ public enum Estado {
 	/**
 	 * Retorna a String que define o Estado.
 	 * 
-	 * @returns A representação textual de um Estado.
+	 * @return A representação textual de um Estado.
 	 * 
 	 */
 	@Override

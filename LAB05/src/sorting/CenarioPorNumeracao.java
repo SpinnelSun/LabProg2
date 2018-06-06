@@ -1,4 +1,4 @@
-package controllers;
+package sorting;
 
 import java.util.Comparator;
 
@@ -21,7 +21,7 @@ public class CenarioPorNumeracao implements Comparator<Cenario> {
 	 * @param c1 O primeiro Cenario.
 	 * @param c2 O segundo Cenario.
 	 * 
-	 * @returns O inteiro que caracteriza a precedência entre os Cenarios.
+	 * @return O inteiro que caracteriza a precedência entre os Cenarios.
 	 * 
 	 */
 	@Override

@@ -26,7 +26,7 @@ public class SeguroPorValor implements Seguro {
 	 * 
 	 */
 	public SeguroPorValor(int valorAssegurado) {
-		Validador.validarPositiveInteger("VALOR ASSEGURADO INVÁLIDO!", valorAssegurado);
+		Validador.validarInteiroPositivo("VALOR ASSEGURADO INVÁLIDO!", valorAssegurado);
 		
 		this.valorAssegurado = valorAssegurado;
 	}
@@ -41,7 +41,7 @@ public class SeguroPorValor implements Seguro {
 	 * 
 	 * @param valorAposta O valor (em centavos) que foi apostado.
 	 * 
-	 * @returns O valor (em centavos) que será assegurado.
+	 * @return O valor (em centavos) que será assegurado.
 	 * 
 	 */
 	@Override
@@ -53,7 +53,7 @@ public class SeguroPorValor implements Seguro {
 	 * Retorna a String que representa o SeguroPorValor. A representação segue o formato "ASSEGURADA 
 	 * (TIPO) - VALOR ASSEGURADO".
 	 * 
-	 * @returns A representação, em String, do SeguroPorValor.
+	 * @return A representação, em String, do SeguroPorValor.
 	 * 
 	 */
 	@Override

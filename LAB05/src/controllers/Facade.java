@@ -27,8 +27,6 @@ public class Facade {
 	 * @param caixa O valor inicial do caixa do Sistema.
 	 * @param taxa O percentual de ganho do Sistema sobre as apostas.
 	 * 
-	 * @returns null.
-	 * 
 	 * @see Sistema#Sistema(int, double)
 	 * 
 	 */
@@ -39,7 +37,7 @@ public class Facade {
 	/**
 	 * Retorna o valor atual em caixa do Sistema de Apostas.
 	 * 
-	 * @returns O valor atual em caixa.
+	 * @return O valor atual em caixa.
 	 * 
 	 * @see Sistema#getCaixa()
 	 * 
@@ -53,7 +51,7 @@ public class Facade {
 	 * 
 	 * @param descricao A descrição do novo Cenario a ser cadastrado.
 	 * 
-	 * @returns O ID do Cenario cadastrado.
+	 * @return O ID do Cenario cadastrado.
 	 * 
 	 * @see Sistema#cadastrarCenario(String)
 	 * 
@@ -68,7 +66,7 @@ public class Facade {
 	 * @param descricao A descrição do novo Cenario com Bônus a ser cadastrado.
 	 * @param bonus O valor (em centavos) do bônus que esse Cenario possuirá.
 	 * 
-	 * @returns O ID do Cenario com Bônus cadastrado.
+	 * @return O ID do Cenario com Bônus cadastrado.
 	 * 
 	 * @see Sistema#cadastrarCenario(String, int)
 	 * 
@@ -82,7 +80,7 @@ public class Facade {
 	 * 
 	 * @param cenario O ID do Cenario a ser exibido.
 	 * 
-	 * @returns A representação textual do Cenario.
+	 * @return A representação textual do Cenario.
 	 * 
 	 * @see Sistema#exibirCenario(int)
 	 * 
@@ -96,7 +94,7 @@ public class Facade {
 	 * 
 	 * @param cenario A posição do Cenario na ordenação atual do Sistema.
 	 * 
-	 * @returns A representação textual do Cenario.
+	 * @return A representação textual do Cenario.
 	 * 
 	 * @see Sistema#exibirCenarioOrdenado(int)
 	 * 
@@ -108,7 +106,7 @@ public class Facade {
 	/**
 	 * Exibe todos os Cenarios cadastrados no Sistema de Apostas.
 	 * 
-	 * @returns A listagem de Cenarios registrados.
+	 * @return A listagem de Cenarios registrados.
 	 *
 	 * @see Sistema#listarCenarios()
 	 * 
@@ -125,7 +123,7 @@ public class Facade {
 	 * @param valor O valor apostado.
 	 * @param previsao A previsão da Aposta.
 	 * 
-	 * @returns O ID da Aposta cadastrada.
+	 * @return O ID da Aposta cadastrada.
 	 * 
 	 * @see Sistema#cadastrarAposta(int, String, int, String)
 	 * 
@@ -145,7 +143,7 @@ public class Facade {
 	 * @param valorSeguro O valor assegurado nessa Aposta.
 	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
 	 * 
-	 * @returns O ID da ApostaAssegurada cadastrada.
+	 * @return O ID da ApostaAssegurada cadastrada.
 	 * 
 	 * @see Sistema#cadastrarAposta(int, String, int, String, int, int)
 	 * 
@@ -166,7 +164,7 @@ public class Facade {
 	 * @param taxaSeguro A taxa assegurada nessa Aposta.
 	 * @param custo O custo pago ao Sistema de Apostas na compra do Seguro.
 	 * 
-	 * @returns O ID da ApostaAssegurada cadastrada.
+	 * @return O ID da ApostaAssegurada cadastrada.
 	 * 
 	 * @see Sistema#cadastrarAposta(int, String, int, String, double, int)
 	 * 
@@ -180,8 +178,6 @@ public class Facade {
 	 * Modifica a ordenação dos Cenarios cadastrados no Sistema de Apostas.
 	 * 
 	 * @param ordem A descrição da ordem a ser adotada pelo Sistema.
-	 * 
-	 * @returns null
 	 * 
 	 * @see Sistema#alterarOrdem(String)
 	 * 
@@ -197,7 +193,7 @@ public class Facade {
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
 	 * 
-	 * @returns O ID da Aposta com novo Seguro.
+	 * @return O ID da Aposta com novo Seguro.
 	 * 
 	 * @see Sistema#alterarSeguroValor(int, int, int)
 	 * 
@@ -213,7 +209,7 @@ public class Facade {
 	 * @param apostaAssegurada O ID da Aposta que terá seu seguro modificado.
 	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
 	 * 
-	 * @returns O ID da Aposta com novo Seguro.
+	 * @return O ID da Aposta com novo Seguro.
 	 * 
 	 * @see Sistema#alterarSeguroValor(int, int, double)
 	 * 
@@ -227,7 +223,7 @@ public class Facade {
 	 * 
 	 * @param cenario O ID do Cenario a ser avaliado.
 	 * 
-	 * @returns O valor total apostado no Cenario.
+	 * @return O valor total apostado no Cenario.
 	 * 
 	 * @see Sistema#valorTotalDeApostas(int)
 	 * 
@@ -241,7 +237,7 @@ public class Facade {
 	 * 
 	 * @param cenario O ID do Cenario a ser avaliado.
 	 * 
-	 * @returns O número de Apostas registradas no Cenario.
+	 * @return O número de Apostas registradas no Cenario.
 	 * 
 	 * @see Sistema#totalDeApostas(int)
 	 * 
@@ -255,7 +251,7 @@ public class Facade {
 	 * 
 	 * @param cenario O ID do Cenario a ser avaliado.
 	 * 
-	 * @returns A listagem de Apostas do Cenario.
+	 * @return A listagem de Apostas do Cenario.
 	 * 
 	 * @see Sistema#listarApostas(int)
 	 * 
@@ -270,8 +266,6 @@ public class Facade {
 	 * @param cenario O ID do Cenario a ser avaliado.
 	 * @param ocorreu A ocorrência do Cenario a ser encerrado.
 	 * 
-	 * @returns null.
-	 * 
 	 * @see Sistema#encerrarCenario(int, boolean)
 	 * 
 	 */
@@ -284,7 +278,7 @@ public class Facade {
 	 * 
 	 * @param cenario O ID do Cenario a ser avaliado.
 	 * 
-	 * @returns O lucro do caixa.
+	 * @return O lucro do caixa.
 	 * 
 	 * @see Sistema#lucroCenario(int)
 	 * 
@@ -299,7 +293,7 @@ public class Facade {
 	 * 
 	 * @param cenario O ID do Cenario a ser avaliado.
 	 * 
-	 * @returns O valor a ser rateado entre os vencedores.
+	 * @return O valor a ser rateado entre os vencedores.
 	 * 
 	 * @see Sistema#rateioCenario(int)
 	 * 

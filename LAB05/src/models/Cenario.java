@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.Estado;
 import utility.Validador;
 
 /**
@@ -33,8 +34,8 @@ public class Cenario {
 	 * 
 	 */
 	public Cenario(int numeracao, String descricao) {
-		Validador.validarNotEmptyNotNull("Descricao nao pode ser vazia", descricao);
-		Validador.validarPositiveInteger("NUMERAÇÃO INVÁLIDA!", numeracao);
+		Validador.validarStringNaoVaziaNaoNula("Descricao nao pode ser vazia", descricao);
+		Validador.validarInteiroPositivo("NUMERAÇÃO INVÁLIDA!", numeracao);
 		
 		this.numeracao = numeracao;
 		this.descricao = descricao;
@@ -62,8 +63,6 @@ public class Cenario {
 	 * 
 	 * @param ocorrencia O boolean relativo à ocorrência do Cenário.
 	 * 
-	 * @returns null.
-	 * 
 	 */
 	public void defineOcorrencia(boolean ocorrencia) {
 		if (!this.estado.equals(Estado.NAO_FINALIZADO)) {
@@ -81,7 +80,7 @@ public class Cenario {
 	 * @param valor O valor (em centavos) que foi apostado.
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * 
-	 * @returns O ID da Aposta cadastrada.
+	 * @return O ID da Aposta cadastrada.
 	 * 
 	 */
 	public int cadastrarAposta(String apostador, int valor, String previsao) {		 
@@ -98,7 +97,7 @@ public class Cenario {
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * @param valorSeguro O valor (em centavos) assegurado na Aposta cadastrada.
 	 * 
-	 * @returns O ID da ApostaAssegurada cadastrada.
+	 * @return O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
 	public int cadastrarAposta(String apostador, int valor, String previsao, int valorSeguro) {		 
@@ -115,7 +114,7 @@ public class Cenario {
 	 * @param previsao O texto que explicita a previsão sobre a ocorrência do Cenario.
 	 * @param taxaSeguro A taxa assegurada na Aposta cadastrada.
 	 * 
-	 * @returns O ID da ApostaAssegurada cadastrada.
+	 * @return O ID da ApostaAssegurada cadastrada.
 	 * 
 	 */
 	public int cadastrarAposta(String apostador, int valor, String previsao, double taxaSeguro) {		 
@@ -131,7 +130,7 @@ public class Cenario {
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param valorSeguro O valor assegurado através do novo Seguro da Aposta.
 	 * 
-	 * @returns O ID da Aposta com novo Seguro.
+	 * @return O ID da Aposta com novo Seguro.
 	 * 
 	 */
 	public int alterarSeguroValor(int apostaAssegurada, int valorSeguro) {
@@ -151,7 +150,7 @@ public class Cenario {
 	 * @param apostaAssegurada O ID da Aposta que terá seu Seguro modificado.
 	 * @param taxaSeguro A taxa assegurada através do novo Seguro da Aposta.
 	 * 
-	 * @returns O ID da Aposta com novo Seguro.
+	 * @return O ID da Aposta com novo Seguro.
 	 * 
 	 */
 	public int alterarSeguroTaxa(int apostaAssegurada, double taxaSeguro) {
@@ -167,7 +166,7 @@ public class Cenario {
 	 * Retorna o valor total (em centavos) que foi apostado no Cenario até o momento. O valor total
 	 * é a soma do valor de cada Aposta registrada no Cenario.
 	 * 
-	 * @returns O valor total (em centavos) apostado no Cenario.
+	 * @return O valor total (em centavos) apostado no Cenario.
 	 * 
 	 */
 	public int valorTotalDeApostas() {
@@ -183,7 +182,7 @@ public class Cenario {
 	/**
 	 * Retorna o número de Apostas registradas no Cenario até o momento.
 	 * 
-	 * @returns O número de Apostas registradas no Cenario.
+	 * @return O número de Apostas registradas no Cenario.
 	 * 
 	 */
 	public int totalDeApostas() {
@@ -195,7 +194,7 @@ public class Cenario {
 	 * contém o toString() de uma Aposta registrada. A listagem segue a ordem de registro das Apos-
 	 * tas.
 	 * 
-	 * @returns A listagem de Apostas registradas no Cenario.
+	 * @return A listagem de Apostas registradas no Cenario.
 	 * 
 	 */
 	public String listarApostas() {
@@ -213,7 +212,7 @@ public class Cenario {
 	 * sua previsão sobre o Cenario não pode coincidir com a ocorrência do Cenário. Caso esse método
 	 * seja executado por um Cenario ainda aberto, uma exceção adequada é lançada.
 	 * 
-	 * @returns O valor total (em centavos) das Apostas perdedoras do Cenario.
+	 * @return O valor total (em centavos) das Apostas perdedoras do Cenario.
 	 * 
 	 */
 	public int totalApostasPerdedoras() {
@@ -239,7 +238,7 @@ public class Cenario {
 	 * 
 	 * @param taxa A taxa de lucro informada pelo Sistema que contém o Cenario.
 	 * 
-	 * @returns O valor (em centavos) de lucro gerado pelo Cenario.
+	 * @return O valor (em centavos) de lucro gerado pelo Cenario.
 	 * 
 	 */
 	public int lucroCenario(double taxa) {
@@ -251,7 +250,7 @@ public class Cenario {
 	 * dastradas no Cenario. Caso esse método seja executado por um Cenario ainda aberto, uma exce-
 	 * ção adequada é lançada.
 	 * 
-	 * @returns O valor total (em centavos) que será pago devido aos Seguros no Cenario.
+	 * @return O valor total (em centavos) que será pago devido aos Seguros no Cenario.
 	 * 
 	 */
 	public int pagamentoSeguros() {
@@ -277,7 +276,7 @@ public class Cenario {
 	 * 
 	 * @param taxa A taxa de lucro informada pelo Sistema que contém o Cenario.
 	 * 
-	 * @returns O valor (em centavos) que será destinado ao rateio entre os vencedores.
+	 * @return O valor (em centavos) que será destinado ao rateio entre os vencedores.
 	 * 
 	 */
 	public int rateioCenario(double taxa) {
@@ -303,7 +302,7 @@ public class Cenario {
 	 * o atributo numeracao iguais.
 	 * 
 	 * @param obj O objeto a ser comparado com o Cenario executando o equals.
-	 * @returns O boolean equivalente ao resultado do teste de igualdade.
+	 * @return O boolean equivalente ao resultado do teste de igualdade.
 	 * 
 	 */
 	@Override
@@ -328,7 +327,7 @@ public class Cenario {
 	 * Retorna a String que representa o Cenario. A representação segue o formato "NUMERAÇÃO - DES
 	 * CRIÇÃO DO CENARIO - ESTADO ATUAL DO CENARIO".
 	 * 
-	 * @returns A representação, em String, do Cenario.
+	 * @return A representação, em String, do Cenario.
 	 * 
 	 */
 	@Override
